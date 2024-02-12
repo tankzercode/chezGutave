@@ -1,0 +1,10 @@
+const { Router } = require('express');
+const ExampleController = require('../controllers/ExampleController');
+const ExampleMiddleware = require('../middlewares/ExampleUtils');
+
+const router = Router();
+
+// Each routes links to a controller function, and can use some middlewares
+router.get('/', ExampleMiddleware, ExampleController.getExampleText);
+
+module.exports = router;

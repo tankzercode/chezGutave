@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  server:
+    build: ./server
+    command: npm start
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    volumes:
+      - ./server:/usr/app
+      - /usr/app/node_modules
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      PORT: ${SERVER_PORT}
+      DATABASE_URL: postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@database/${DATABASE_NAME}
+  
+  client:
+    build: ./client
+    command: npm run dev
+    ports:
+      - 5173:5173
+    volumes:
+      - type: bind
+        source: ./client
+        target: /usr/app
+      - /usr/app/node_modules
+    depends_on:
+      - server
+  
+  database:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_NAME}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U chez_gustave"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
