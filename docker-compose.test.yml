@@ -2,7 +2,9 @@ version: '3'
 
 services:
   server:
-    build: ./server
+    build:
+      context: server
+      dockerfile: ../Dockerfile
     command: npm run test
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
