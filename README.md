@@ -16,7 +16,7 @@ And run `docker compose up -d`. This should start the server and the client.
 
 The server should be accessible on `localhost:3630`, and the client on `localhost:5173`.
 
-If you want to close them `docker compose down`.
+If you want to close them `docker compose kill` to close the server, client and database and `docker compose down` to delete the containers.
 
 ## Tests
 
