@@ -31,5 +31,3 @@ To do that you should run: `docker compose up -f docker-compose.test.yml -d`.
 To run client tests you need to start docker as normal and then `cd` into the client directory and run `npx cypress open`.
 
 This should open a browser where you can access, edit and create e2e tests.
-
-### THIS IS A TEST AND SHOULD BE REMOVED
