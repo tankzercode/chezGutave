@@ -16,3 +16,17 @@ And run `docker compose up -d`. This should start the server and the client.
 The server should be accessible on `localhost:3630`, and the client on `localhost:5173`.
 
 If you want to close them `docker compose down`.
+
+## Tests
+
+### Server
+
+To run server tests your need to run the `docker-compose.test.yml` instead of the normal `docker-compose.yml`
+
+To do that you should run: `docker compose up -f docker-compose.test.yml -d`.
+
+### Client
+
+To run client tests you need to start docker as normal and then go into the client directory and run `npx cypress open`.
+
+This should open a browser where you can access, edit and create e2e tests.
