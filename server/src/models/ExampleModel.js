@@ -11,4 +11,6 @@ const Example = database.define('Example', {
         type: DataTypes.STRING,
         defaultValue: 'Example'
     }
-})
+});
+
+module.exports = Example;
