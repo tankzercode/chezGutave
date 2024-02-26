@@ -2,7 +2,7 @@ const app = require('./app');
 const database = require('./database');
 
 database.authenticate().then(() => {
-    console.log('Connected to database!');
+    console.log('Connected to database!');c
     database.sync({ force: true });
 });
 
