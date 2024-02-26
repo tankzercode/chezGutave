@@ -17,7 +17,7 @@ services:
     environment:
       PORT: ${SERVER_PORT}
       # Mettez à jour la ligne ci-dessous pour utiliser la chaîne de connexion MongoDB
-      DATABASE_URL: mongodb://${DATABASE_USER}:${DATABASE_PASSWORD}@database:27017/${DATABASE_NAME}
+      DATABASE_URL: mongodb://${DATABASE_USER}:${DATABASE_PASSWORD}@141.94.246.196:27017/${DATABASE_NAME}
 
   client:
     build:
