@@ -1,14 +1,14 @@
-const express = require('express');
+// const express = require('express');
 
-const app = express();
+// const app = express();
 
-// Define global middlewares here:
+// // Define global middlewares here:
 
-app.get('/', (req, res) => {
-    res.send('Hello world');
-});
+// app.get('/', (req, res) => {
+//     res.send('Hello world');
+// });
 
-// Register all routers
-app.use('/example', require('./routes/ExampleRoutes'));
+// // Register all routers
+// app.use('/example', require('./routes/ExampleRoutes'));
 
-module.exports = app;
+// module.exports = app;

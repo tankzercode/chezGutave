@@ -47,5 +47,11 @@ services:
     volumes:
       - mongodb_data:/data/db
 
+    healthcheck:
+      test: [ "CMD", "sh", "-c", "nc -z 127.0.0.1 27017" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
 volumes:
   mongodb_data:

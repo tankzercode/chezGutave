@@ -1,11 +1,18 @@
-const app = require('./app');
-const database = require('./database');
+const express = require('express');
+const userRoutes = require('./routes/userRoutes'); // Assurez-vous que le chemin est correct
 
-database.authenticate().then(() => {
-    console.log('Connected to database!');
-    database.sync({ force: true });
+const app = express();
+
+app.use(express.json()); // Middleware pour parser le JSON
+
+app.get('/', (req, res) => {
+    res.send('Hello world');
 });
 
-app.listen(process.env.PORT, () => {
-    console.log('Server listening on 3630');
+// Utiliser les routes d'utilisateur
+app.use('/api', userRoutes);
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
