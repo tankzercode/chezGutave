@@ -1,5 +1,5 @@
 const { Model, DataTypes } = require("sequelize");
-const sequelize = require("../config/sequelize");
+const sequelize = require("../database");
 
 class Rating extends Model {}
 
