@@ -1,14 +1,21 @@
-// const express = require('express');
+const express = require("express");
+const connectDatabase = require("./database");
 
-// const app = express();
+const app = express();
 
-// // Define global middlewares here:
+// Connect to database
+connectDatabase();
 
-// app.get('/', (req, res) => {
-//     res.send('Hello world');
-// });
+// Define global middlewares here
 
-// // Register all routers
-// app.use('/example', require('./routes/ExampleRoutes'));
+app.get("/", (req, res) => {
+  res.send("Hello world");
+});
 
-// module.exports = app;
+// Register all routers
+// app.use('/user', require('./routes/userRoutes'));
+
+const PORT = process.env.SERVER_PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+module.exports = app;
