@@ -16,8 +16,7 @@ services:
         condition: service_healthy
     environment:
       PORT: ${SERVER_PORT}
-      # Mettez à jour la ligne ci-dessous pour utiliser la chaîne de connexion MongoDB
-      DATABASE_URL: mongodb://${DATABASE_USER}:${DATABASE_PASSWORD}@141.94.246.196:27017/${DATABASE_NAME}
+      DATABASE_URL: mongodb://${DATABASE_USER}:${DATABASE_PASSWORD}@database:27017/${DATABASE_NAME}
 
   client:
     build:
@@ -35,20 +34,15 @@ services:
       - server
 
   database:
-    # Utilisez l'image officielle de MongoDB
     image: mongo:latest
     environment:
-      # MongoDB utilise ces variables pour la création initiale d'un utilisateur et d'une base de données
       MONGO_INITDB_ROOT_USERNAME: ${DATABASE_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${DATABASE_PASSWORD}
       MONGO_INITDB_DATABASE: ${DATABASE_NAME}
-    # MongoDB n'a pas un système de healthcheck intégré comme pg_isready dans PostgreSQL
-    # Vous pouvez ajouter vos propres scripts de vérification si nécessaire
     volumes:
       - mongodb_data:/data/db
-
     healthcheck:
-      test: [ "CMD", "sh", "-c", "nc -z 127.0.0.1 27017" ]
+      test: ["CMD", "mongo", "--eval", "db.runCommand('ping').ok"]
       interval: 10s
       timeout: 5s
       retries: 5
