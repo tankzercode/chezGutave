@@ -139,17 +139,17 @@ export const Header = () => {
 
             <header id='header'>
                 <div id='centredlogo' ><img id='logo' src={Logo} onClick={home}></img></div>
-                <div><h1 id='textheader'>Les Vacances Chez Gustave</h1></div>
+                <div id='title'><h1 id='textheader' onClick={home}>Les Vacances Chez Gustave</h1></div>
                 <div id='headeruser'>
 
                     {!user.user?.name &&
-                        <div className='btn'>  <button className='btnheader' onClick={onOpenModal}>Se connecter</button>
+                        <div className='btns'>  <button className='btnheader' onClick={onOpenModal}>Se connecter</button>
                             <button className='btnheader' onClick={onOpenModal2}>S'inscrire</button> </div>
                     }
                     {user.user?.name &&
                         <div id='userconnected'>
                             <h2 id='user'>{user.user.name} {user.user.surname}</h2>
-                            <div className='btn'>
+                            <div className='btns'>
                                 <button className='btnheader ' onClick={menu}>Menus</button>
                                 <button className='btnheader ' onClick={logOut}>Déconnection</button>
                             </div>
@@ -177,7 +177,7 @@ export const Header = () => {
                     <input className='login' type="text" onChange={handleLoginChange} placeholder='Nom' />
                     <input className='login' type="text" onChange={handleLoginChange} placeholder='Prénom' />
                     <input className='login' type="email" onChange={handleLoginChange} placeholder='Votre Email' />
-                    <input className='login' type="phone" onChange={handleLoginChange} placeholder='Votre Téléphone' />
+                    <input className='login' type="tel" required minlength="10" maxlength="10"onChange={handleLoginChange} placeholder='Votre Téléphone' />
                     <input className='login' type="password" onChange={handleLoginChange} placeholder='Votre mot de passe' />
 
                     <input type='submit' className='btnheader' onClick={onCloseModal2} />

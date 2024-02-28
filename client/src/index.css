@@ -40,7 +40,7 @@
     font-weight: 400;
     --Vert: #155b55;
     --Or: #b79551;
-    --Beige:#f0E0b6;
+    --Beige:#fffbf0;
     --Rouge: #FF3535;
     
   background-color: var(--Beige);
@@ -48,7 +48,7 @@
   color: var(--Vert);
   }
   body{
-    margin: 90px 0 0 0;
+    margin: 120px 0 0 0;
     box-sizing: border-box;
     color: var(--Vert);
   }
@@ -56,3 +56,12 @@
    :focus{
     outline: 2px solid var(--Or);
    }
+   .btn{
+    background-color: #b79551;
+    border-style: none;
+    height: 45px;
+    width: 100px;
+    border-radius: 2rem;
+    font-weight: 700;
+    
+}
