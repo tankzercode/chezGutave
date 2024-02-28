@@ -1,10 +1,5 @@
 // models/index.js
-
-const Sequelize = require("sequelize");
-const sequelize = new Sequelize("database", "username", "password", {
-  dialect: "postgres",
-});
-
+const sequelize = require("../database");
 const db = {};
 
 db.Sequelize = Sequelize;
