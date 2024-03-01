@@ -7,10 +7,10 @@ const RatingModel = require("./ratingModels.js");
 
 // Exportez les modèles
 module.exports = {
-  UserModel,
-  LogementModel,
-  EquipementModel,
-  ReservationModel,
-  RatingModel,
-  // Exportez d'autres modèles ici
+  User: UserModel,
+  Logement: LogementModel,
+  Equipement: EquipementModel,
+  Reservation: ReservationModel,
+  Rating: RatingModel,
+  // autres modèles
 };
