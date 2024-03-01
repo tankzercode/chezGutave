@@ -11,7 +11,8 @@ const reservationController = require("../controllers/reservationController");
 // Routes pour les utilisateurs
 router.post("/createUser", userController.createUser);
 router.get("/getAllUsers", userController.getAllUsers);
-
+router.post("/signup", userController.signup);
+router.post("/signin", userController.signin);
 // Routes pour les logements
 router.post("/createLogement", logementController.createLogement);
 router.get("/getAllLogements", logementController.getAllLogements);
