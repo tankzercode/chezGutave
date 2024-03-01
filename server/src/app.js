@@ -9,6 +9,6 @@ app.get('/', (req, res) => {
 });
 
 // Register all routers
-app.use('/example', require('./routes/ExampleRoutes'));
+// app.use('/example', require('./routes/ExampleRoutes'));
 
 module.exports = app;

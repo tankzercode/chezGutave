@@ -10,7 +10,7 @@ Rating.init(
     reservationId: {
       type: DataTypes.INTEGER,
       references: {
-        model: "reservations", // Nom de la table tel que défini dans Sequelize
+        model: "Reservations", // Nom de la table tel que défini dans Sequelize
         key: "id",
       },
       onDelete: "CASCADE",

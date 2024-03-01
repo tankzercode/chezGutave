@@ -3,14 +3,13 @@ const sequelize = require("../database");
 const db = {};
 
 db.Sequelize = Sequelize;
-db.sequelize = sequelize;
 
 // Importation des modèles
 db.User = require("./user.js")(sequelize, Sequelize);
 db.Logement = require("./logement.js")(sequelize, Sequelize);
 db.Equipement = require("./equipement.js")(sequelize, Sequelize);
 db.Reservation = require("./reservation.js")(sequelize, Sequelize);
-db.Rating = require("./rating.js")(sequelize, Sequelize);
+db.Rating = require("./ratingModels.js")(sequelize, Sequelize);
 
 // Définition des relations
 db.Logement.belongsToMany(db.Equipement, { through: "LogementEquipements" });
