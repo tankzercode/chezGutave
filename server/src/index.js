@@ -9,7 +9,9 @@ app.use('/api', apiRoutes);
 
 database.authenticate().then(() => {
     console.log('Connected to database!');
-    database.sync({ force: true });
+    database.sync({ force: true }).then(() => {
+        console.log('Database synchronized');
+    });    
 });
 
 app.listen(process.env.PORT, () => {

@@ -1,8 +1,8 @@
-const UserModel = require("./UserModel");
-const LogementModel = require("./logementsModel");
-const EquipementModel = require("./equipementsModel");
-const ReservationModel = require("./reservationsModels");
-const RatingModel = require("./ratingModels");
+const UserModel = require("./UserModel.js");
+const LogementModel = require("./logementsModel.js");
+const EquipementModel = require("./equipementsModel.js");
+const ReservationModel = require("./reservationsModels.js");
+const RatingModel = require("./ratingModels.js");
 // Importez d'autres modèles ici
 
 // Exportez les modèles
