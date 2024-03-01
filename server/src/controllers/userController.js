@@ -1,23 +1,6 @@
 const db = require("../models/index");
-
-// Créer un nouvel utilisateur
-exports.createUser = async (req, res) => {
-  try {
-    const { email, name, tel, password, is_admin } = req.body;
-    const newUser = await db.User.create({
-      email,
-      name,
-      tel,
-      password,
-      is_admin,
-    });
-    res.status(201).send(newUser);
-  } catch (error) {
-    console.error(error); // Imprimez l'erreur dans la console du serveur
-    res.status(400).send(error.message); // Envoyez le message d'erreur dans la réponse
-  }
-};
-
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 // Récupérer tous les utilisateurs
 exports.getAllUsers = async (req, res) => {
   try {
@@ -45,12 +28,10 @@ exports.signup = async (req, res) => {
       .send({ message: "Utilisateur créé avec succès", user: newUser });
   } catch (error) {
     console.error(error);
-    res
-      .status(400)
-      .send({
-        message: "Erreur lors de la création de l'utilisateur",
-        error: error.message,
-      });
+    res.status(400).send({
+      message: "Erreur lors de la création de l'utilisateur",
+      error: error.message,
+    });
   }
 };
 
@@ -68,7 +49,9 @@ exports.signin = async (req, res) => {
 
       res.status(200).send({ message: "Connexion réussie", token });
     } else {
-      res.status(401).send({ message: "Email ou mot de passe incorrect" });
+      res.status(401).send({
+        message: "Email ou mot de passe incorrect",
+      });
     }
   } catch (error) {
     console.error(error);
