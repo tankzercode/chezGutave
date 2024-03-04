@@ -23,8 +23,38 @@ exports.signup = async (req, res) => {
       is_admin,
     });
 
-    res
-      .status(201)
+        // Configurer le transporteur Nodemailer
+        let transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 587,
+        secure: false,
+        auth: {
+            user: process.env.EMAIL_ADDRESS,
+            pass: process.env.EMAIL_PASSWORD
+        },
+        tls: {
+          ciphers: 'SSLv3'
+      }
+    });
+
+    // Configurer les options de l'email
+    let mailOptions = {
+        from: process.env.EMAIL_ADDRESS,
+        to: newUser.email,
+        subject: 'Votre mot de passe pour Chez_Gustave',
+        text: `Bonjour, voici votre mot de passe : ${newUser.password}`
+    };
+
+    // Envoyer l'email
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email envoyé : ' + info.response);
+        }
+    });
+
+    res.status(201)
       .send({ message: "Utilisateur créé avec succès", user: newUser });
   } catch (error) {
     console.error(error);
