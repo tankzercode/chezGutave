@@ -1,0 +1,28 @@
+# REST Client Example
+
+## Get Home
+GET http://localhost:3000/
+
+### Get User by ID
+GET http://localhost:3000/users/:id
+
+### Add New User
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": "john.doe@example.com"
+}
+
+### Update User by ID
+PUT http://localhost:3000/users/:id
+Content-Type: application/json
+
+{
+    "name": "Jane Doe",
+    "email": "jane.doe@example.com"
+}
+
+### Delete User by ID
+DELETE http://localhost:3000/users/:id
