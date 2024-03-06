@@ -1,6 +1,7 @@
 const db = require("../models/index");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 const db = require("../models/index");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
