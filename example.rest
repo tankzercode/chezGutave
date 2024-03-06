@@ -6,6 +6,25 @@ GET http://localhost:3000/
 ### Get User by ID
 GET http://localhost:3000/users/:id
 
+### Create Account
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+    "username": "newuser",
+    "email": "newuser@example.com",
+    "password": "password123"
+}
+
+### User Login
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "email": "user@example.com",
+    "password": "password123"
+}
+
 ### Add New User
 POST http://localhost:3000/users
 Content-Type: application/json
