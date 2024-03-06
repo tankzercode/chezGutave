@@ -6,9 +6,9 @@ const apiRoutes = require("./routes/apiRoutes");
 const port = 3000;
 App.use(
   cors({
-    origin: "http://localhost:5173", // Remplacez avec l'URL de votre frontend
-    methods: ["GET", "POST"], // Les méthodes HTTP autorisées
-    allowedHeaders: ["Content-Type"], // Les en-têtes autorisés
+    origin: "http://localhost:5173",
+    methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
+    credentials: true,
   })
 );
 app.use(express.json());
