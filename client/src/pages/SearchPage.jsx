@@ -4,14 +4,12 @@ import  Image2 from '/backyard-water-contemporary-architecture-sky.jpg'
 import  Image3 from '/movie-night-by-pool-whole-family1.jpg'
 import  Image4 from '/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-generative-ai-illustration.jpg'
 import { Carousel } from '../components/Carousel';
-import { Prix } from '../components/Prix';
 
-export const Home=()=>{
+export const SearchPage=()=>{
     return(
         <>
         
         <Carousel/>
-
         </>
     )
 }
