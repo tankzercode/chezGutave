@@ -1,6 +1,11 @@
 const db = require("../models/index");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
+
+const db = require("../models/index");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 // Récupérer tous les utilisateurs
 exports.getAllUsers = async (req, res) => {
   try {

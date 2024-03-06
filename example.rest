@@ -1,0 +1,47 @@
+# REST Client Example
+
+## Get Home
+GET http://localhost:3000/api/
+
+### Get User by ID
+GET http://localhost:3000/api/users/:id
+
+### Create Account
+POST http://localhost:3000/api/singup
+Content-Type: application/json
+
+{
+    
+    "email": "newuser@example.com",
+    "password": "password123"
+}
+
+### User Login
+POST http://localhost:3000/api/signin
+Content-Type: application/json
+
+{
+    "email": "user@example.com",
+    "password": "password123"
+}
+
+### Add New User
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": "john.doe@example.com"
+}
+
+### Update User by ID
+PUT http://localhost:3000/api/users/:id
+Content-Type: application/json
+
+{
+    "name": "Jane Doe",
+    "email": "jane.doe@example.com"
+}
+
+### Delete User by ID
+DELETE http://localhost:3000/api/users/:id
