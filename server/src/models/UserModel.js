@@ -5,9 +5,15 @@ class User extends Model {}
 
 User.init(
   {
-    email: DataTypes.STRING,
+    email: {
+      type: DataTypes.STRING,
+      unique: true, // Assure que l'email est unique dans la base de données
+    },
     name: DataTypes.STRING,
-    tel: DataTypes.STRING,
+    tel: {
+      type: DataTypes.STRING,
+      unique: true, // Assure que le numéro de téléphone est unique
+    },
     password: DataTypes.STRING,
     is_admin: DataTypes.BOOLEAN,
   },
