@@ -4,7 +4,7 @@ const database = require("./database");
 const express = require("express");
 const apiRoutes = require("./routes/apiRoutes");
 const port = 3000;
-App.use(
+app.use(
   cors({
     origin: "http://localhost:5173",
     methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
