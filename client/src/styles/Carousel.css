@@ -1,10 +1,11 @@
 .imgCarousel{
-    width: 100vW;
-    height: 100vh;
+    width: 100vw;
+    height: auto;
 }
 .carousel{
+    width: 100vw;
     height: fit-content;
 }
 .horizontalSlider___281Ls{
-    height: 100vh;
+    height: 90vh;
 }
