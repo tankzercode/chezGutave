@@ -16,57 +16,46 @@ exports.getAllUsers = async (req, res) => {
 exports.signup = async (req, res) => {
   try {
     const { email, name, tel, password, is_admin } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10); // Hashage du mot de passe
-
-    const newUser = await db.User.create({
-      email,
-      name,
-      tel,
-      password: hashedPassword,
-      is_admin,
-    });
+    // Créer l'utilisateur dans votre DB, hashage du mot de passe, etc.
 
     let transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 587,
-      secure: false,
+      secure: false, // true pour 465, false pour les autres ports
       auth: {
-        user: process.env.EMAIL_ADDRESS,
-        pass: process.env.EMAIL_PASSWORD,
+        user: process.env.EMAIL_ADDRESS, // Votre adresse email Gmail
+        pass: process.env.EMAIL_PASSWORD, // Votre mot de passe Gmail
       },
       tls: {
-        rejectUnauthorized: false, // En environnement de développement, pour les serveurs avec des certificats auto-signés
+        rejectUnauthorized: false, // Nécessaire pour éviter certaines erreurs en développement
       },
     });
 
+    // Générer le lien d'activation avec un jeton unique
+    const activationLink = `http://votre-domaine.com/activation/${userUniqueToken}`;
+
     let mailOptions = {
-      from: process.env.EMAIL_ADDRESS,
-      to: newUser.email,
-      subject: "Votre compte a été créé",
-      text: `Bonjour ${name}, votre compte a été créé avec succès. Voici votre mot de passe : ${newUser.password} - Il est recommandé de le changer dès votre première connexion.`,
+      from: process.env.EMAIL_ADDRESS, // Expéditeur
+      to: email, // Destinataire
+      subject: "Activation de votre compte", // Sujet
+      html: `<h4>Bonjour ${name},</h4>
+             <p>Votre compte a été créé avec succès. Veuillez cliquer sur le lien ci-dessous pour l'activer:</p>
+             <a href="${activationLink}">Activer mon compte</a>
+             <p>Ce lien expire dans 24 heures.</p>`, // corps du texte en HTML
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
         console.log(error);
-        res.status(500).send({
-          message: "Erreur lors de l'envoi de l'email",
-          error: error.message,
-        });
+        res.status(500).send("Erreur lors de l'envoi de l'email");
       } else {
         console.log("Email envoyé : " + info.response);
-        res.status(201).send({
-          message: "Utilisateur créé avec succès et email envoyé",
-          user: newUser,
-        });
+        res.send("Utilisateur créé avec succès et email envoyé");
       }
     });
   } catch (error) {
     console.error(error);
-    res.status(400).send({
-      message: "Erreur lors de la création de l'utilisateur",
-      error: error.message,
-    });
+    res.status(400).send("Erreur lors de la création de l'utilisateur");
   }
 };
 
