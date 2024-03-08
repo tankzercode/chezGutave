@@ -1,3 +1,4 @@
+require("dotenv").config();
 const db = require("../models/index");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -25,7 +26,6 @@ exports.signup = async (req, res) => {
       is_admin,
     });
 
-    // Configurer le transporteur Nodemailer
     let transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 587,
@@ -35,30 +35,32 @@ exports.signup = async (req, res) => {
         pass: process.env.EMAIL_PASSWORD,
       },
       tls: {
-        ciphers: "SSLv3",
+        rejectUnauthorized: false, // En environnement de développement, pour les serveurs avec des certificats auto-signés
       },
     });
 
-    // Configurer les options de l'email
     let mailOptions = {
       from: process.env.EMAIL_ADDRESS,
       to: newUser.email,
-      subject: "Votre mot de passe pour Chez_Gustave",
-      text: `Bonjour, voici votre mot de passe : ${newUser.password}`,
+      subject: "Votre compte a été créé",
+      text: `Bonjour ${name}, votre compte a été créé avec succès. Voici votre mot de passe : ${newUser.password} - Il est recommandé de le changer dès votre première connexion.`,
     };
 
-    // Envoyer l'email
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
         console.log(error);
+        res.status(500).send({
+          message: "Erreur lors de l'envoi de l'email",
+          error: error.message,
+        });
       } else {
         console.log("Email envoyé : " + info.response);
+        res.status(201).send({
+          message: "Utilisateur créé avec succès et email envoyé",
+          user: newUser,
+        });
       }
     });
-
-    res
-      .status(201)
-      .send({ message: "Utilisateur créé avec succès", user: newUser });
   } catch (error) {
     console.error(error);
     res.status(400).send({
