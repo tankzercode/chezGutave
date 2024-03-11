@@ -1,127 +1,64 @@
-Il semble qu'il y ait eu un problème avec la récupération du fichier `API_DOCUMENTATION.md` de votre dépôt GitHub. Le système n'a pas pu trouver ou accéder au fichier spécifié. Cela peut être dû au fait que le fichier n'existe pas encore dans votre dépôt.
-
-Pour créer un nouveau fichier `API_DOCUMENTATION.md` et y documenter les API disponibles, je vais d'abord ébaucher le contenu de la documentation ici. Ensuite, je pourrai créer ce fichier dans votre dépôt GitHub.
-
-Voici un exemple de contenu pour `API_DOCUMENTATION.md` :
-
 ```markdown
-# API Documentation
+# Documentation de l'API pour les Logements
 
-## Logements
+Cette documentation décrit les endpoints de l'API concernant la gestion des logements dans l'application.
 
-### Créer un logement
+## Endpoints
 
-- **URL**
-  `/createLogement`
+### Créer un nouveau logement
 
-- **Méthode**
-  `POST`
+- **Description**: Permet de créer un nouveau logement avec les détails et images fournies.
+- **URL**: `/createLogement`
+- **Méthode**: `POST`
+- **Données requises**:
 
-- **Données requises**
+```json
+{
+  "secteur": "String",
+  "description": "String",
+  "tarif_bas": "Float",
+  "tarif_moyen": "Float",
+  "tarif_haut": "Float",
+  "m_carre": "Float",
+  "chambre": "Integer",
+  "salle_de_bain": "Integer",
+  "categorie": "String",
+  "type": "String"
+}
+```
 
-  ```json
-  {
-    "images": [Array of image URLs],
-    "secteur": "String",
-    "description": "String",
-    "tarif_bas": "Float",
-    "tarif_moyen": "Float",
-    "tarif_haut": "Float",
-    "m_carre": "Float",
-    "chambre": "Integer",
-    "salle_de_bain": "Integer",
-    "categorie": "String",
-    "type": "String"
-  }
-  ```
+**Note**: Les images doivent être envoyées en tant que partie d'une requête multipart/form-data.
 
-- **Réponse de succès**
+- **Réponse de succès**:
+  - **Code**: 201
+  - **Contenu**:
 
-  - **Code** : 201
-  - **Contenu** :
-
-  ```json
-  {
-    "id": 12,
-    "images": [...],
-    "secteur": "...",
-    ...
-  }
-  ```
+```json
+{
+  "id": "Integer",
+  "images": ["Array of Strings"],
+  "secteur": "String",
+  ...
+}
+```
 
 ### Récupérer tous les logements
 
-- **URL**
-  `/getAllLogements`
+- **Description**: Permet de récupérer la liste de tous les logements disponibles.
+- **URL**: `/getAllLogements`
+- **Méthode**: `GET`
+- **Réponse de succès**:
+  - **Code**: 200
+  - **Contenu**:
 
-- **Méthode**
-  `GET`
-
-- **Réponse de succès**
-
-  - **Code** : 200
-  - **Contenu** :
-
-  ```json
-  [
-    {
-      "id": 12,
-      "images": [...],
-      "secteur": "...",
-      ...
-    },
-    ...
-  ]
-  ```
-
-### Mettre à jour un logement
-
-- **URL**
-  `/updateLogement/:logementId`
-
-- **Méthode**
-  `PUT`
-
-- **Données requises**
-
-  ```json
+```json
+[
   {
-    "images": [Array of image URLs],
+    "id": "Integer",
+    "images": ["Array of Strings"],
+    "secteur": "String",
     ...
-  }
-  ```
-
-- **Réponse de succès**
-
-  - **Code** : 200
-  - **Contenu** :
-
-  ```json
-  {
-    "id": 12,
-    "images": [...],
-    ...
-  }
-  ```
-
-### Supprimer un logement
-
-- **URL**
-  `/deleteLogement/:logementId`
-
-- **Méthode**
-  `DELETE`
-
-- **Réponse de succès**
-
-  - **Code** : 200
-  - **Contenu** :
-
-  ```json
-  {
-    "message": "Logement supprimé avec succès."
-  }
-  ```
+  },
+  ...
+]
 ```
-
-Cette documentation devrait être complétée avec les détails de toutes les autres API que vous avez dans votre application. Voulez-vous que je crée ce fichier `API_DOCUMENTATION.md` avec le contenu ci-dessus dans votre dépôt GitHub ?
