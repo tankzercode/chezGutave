@@ -1,58 +1,82 @@
 /* Main CSS (should not be style for pages or components) */
 .quattrocento-sans-regular {
-    font-family: "Quattrocento Sans", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-  
-  .quattrocento-sans-bold {
-    font-family: "Quattrocento Sans", sans-serif;
-    font-weight: 700;
-    font-style: normal;
-  }
-  
-  .quattrocento-sans-regular-italic {
-    font-family: "Quattrocento Sans", sans-serif;
-    font-weight: 400;
-    font-style: italic;
-  }
-  
-  .quattrocento-sans-bold-italic {
-    font-family: "Quattrocento Sans", sans-serif;
-    font-weight: 700;
-    font-style: italic;
-  }
-  .quattrocento-regular {
-    font-family: "Quattrocento", serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-  
-  .quattrocento-bold {
-    font-family: "Quattrocento", serif;
-    font-weight: 700;
-    font-style: normal;
-  }
-  :root {
-    box-sizing: border-box;
-    font-family:"Quattrocento Sans";
-    line-height: 1.5;
-    font-weight: 400;
-    --Vert: #155b55;
-    --Or: #b79551;
-    --Beige:#f0E0b6;
-    --Rouge: #FF3535;
-    
+  font-family: "Quattrocento Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.quattrocento-sans-bold {
+  font-family: "Quattrocento Sans", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.quattrocento-sans-regular-italic {
+  font-family: "Quattrocento Sans", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.quattrocento-sans-bold-italic {
+  font-family: "Quattrocento Sans", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.quattrocento-regular {
+  font-family: "Quattrocento", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.quattrocento-bold {
+  font-family: "Quattrocento", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+:root {
+  box-sizing: border-box;
+  font-family: "Quattrocento Sans";
+  line-height: 1.5;
+  font-weight: 400;
+  --Vert: #155b55;
+  --Or: #b79551;
+  --Beige: #fffbf0;
+  --Rouge: #FF3535;
+
   background-color: var(--Beige);
   letter-spacing: 1px;
   color: var(--Vert);
-  }
-  body{
-    margin: 90px 0 0 0;
-    box-sizing: border-box;
-    color: var(--Vert);
-  }
+}
 
-   :focus{
-    outline: 2px solid var(--Or);
-   }
+body {
+  margin: 120px 0 70px 0;
+  padding: 0;
+  color: var(--Vert);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+:focus {
+  outline: 1px solid var(--Or);
+}
+
+.btn {
+  background-color: var(--Vert);
+  border: 2px solid #b79551;
+  height: 45px;
+  width: 100px;
+  color: var(--Or);
+  font-weight: 700;
+
+}
+
+.btn:hover {
+  transform: scale(1.1);
+  border-color: white;
+  color: white;
+  cursor: pointer;
+}

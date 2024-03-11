@@ -1,0 +1,30 @@
+
+
+export const MentionLegales = () => {
+
+    return (
+        <>
+        
+            <h2>Mentions Légales</h2>
+            <p>
+
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et accumsan ipsum. Nullam auctor quam et lorem lacinia dignissim. Mauris eget dictum arcu. Vivamus mauris mauris, interdum rutrum eleifend ac, dignissim in ante. Donec vitae vestibulum nulla, non pulvinar nunc. Sed velit turpis, aliquam id ante euismod, egestas auctor mauris. Etiam elementum libero justo. Morbi porta vitae leo sed pulvinar. Pellentesque iaculis justo lacinia faucibus mattis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent at lectus quis velit pretium ornare. Duis gravida sem tincidunt ipsum pellentesque, eleifend consequat sem consequat. Aenean elementum lacus nec enim facilisis, in porta eros rhoncus.
+
+                Nunc tristique orci volutpat velit molestie posuere. In pulvinar euismod arcu vel feugiat. Vivamus tincidunt est sapien, ac facilisis nulla semper eget. Morbi sed quam elit. Aliquam vitae lorem nisl. Aenean sagittis orci id nisl posuere, in venenatis magna consequat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam cursus at elit eu mattis. Ut volutpat condimentum mi. Vivamus ullamcorper risus vel tortor condimentum, vitae ornare libero finibus. Aenean fermentum, neque sit amet congue vulputate, ligula lacus ultrices ipsum, a luctus ligula lectus et sapien. Ut mollis massa ante, sagittis dapibus lectus dictum eget. Pellentesque laoreet nulla ut est suscipit, sit amet iaculis sem eleifend. Maecenas odio orci, molestie a imperdiet eu, rutrum sed lectus. Phasellus lacus eros, posuere a erat volutpat, placerat maximus tortor.
+
+                Curabitur venenatis lectus ante, sit amet luctus arcu lacinia in. Nulla sagittis, leo vitae dapibus viverra, purus lorem varius orci, eget interdum lacus enim a neque. Integer feugiat quis leo quis aliquet. Mauris quis lacus lobortis, porta justo quis, lacinia lectus. Donec luctus sapien non mi interdum, in feugiat turpis accumsan. Nunc euismod felis at eros fringilla consequat. Cras lobortis risus nec commodo consectetur. Etiam accumsan tortor lacus, vel vulputate metus maximus eu. Phasellus fringilla semper fermentum. Sed nunc lacus, euismod quis urna vitae, dignissim tincidunt mauris. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed at diam mattis tellus dapibus pellentesque et a turpis. Maecenas cursus diam non metus ultricies faucibus. Curabitur sagittis elit quis egestas dignissim. Proin a arcu sed nunc viverra scelerisque ac in nisl.
+
+                Curabitur fermentum maximus ante aliquet aliquet. Vestibulum porttitor arcu sit amet lectus facilisis, at iaculis est mollis. Proin feugiat arcu augue. Integer vitae ante eu orci bibendum placerat. Ut eget arcu non elit sodales auctor at sed neque. Cras in eleifend dolor, vel cursus lorem. Curabitur vitae tempor est. Nulla fermentum, purus non ultrices commodo, ex purus feugiat urna, eget ultricies lectus ante id nulla. Mauris ac congue urna. Aliquam sed pulvinar ante. Vestibulum convallis dui sed nisi posuere auctor. Integer lobortis, orci sit amet iaculis elementum, diam eros viverra diam, efficitur malesuada tellus elit quis nulla. Phasellus vehicula dolor at justo semper, et finibus mauris suscipit. Nunc metus tortor, varius porta egestas a, lobortis nec tellus. Nunc quis turpis nibh.
+
+                Donec pharetra pellentesque arcu, gravida lacinia arcu malesuada in. Nam ac ligula eget turpis hendrerit ullamcorper. Sed placerat molestie ante vel consectetur. Aenean eu lectus id felis suscipit tincidunt eget sed quam. Vestibulum eu gravida diam. Mauris sit amet sagittis ex. Sed sit amet leo eget nibh feugiat venenatis nec euismod diam. Nulla sollicitudin est sit amet quam facilisis, ut pellentesque orci malesuada. Quisque tempus purus id vehicula interdum. Ut risus arcu, iaculis sit amet consectetur nec, consequat et diam. Etiam tincidunt finibus lorem, at bibendum est accumsan quis. Aliquam non sollicitudin lorem. Pellentesque vitae ante non purus efficitur mollis.
+
+                Pellentesque pulvinar est a tempor varius. Fusce tempor dui vitae lorem pulvinar interdum. Integer ornare luctus enim, et tristique tellus pulvinar at. Nullam vel est id dui maximus congue eu et risus. Curabitur auctor velit eget lacus hendrerit, et bibendum urna pulvinar. Vestibulum feugiat lorem turpis, at pellentesque ante convallis hendrerit. Phasellus ac massa vitae diam maximus sagittis vel et diam. Vivamus hendrerit rutrum risus pretium suscipit. Sed diam sem, fringilla in venenatis vel, molestie vel urna. Suspendisse at nibh fringilla felis auctor ullamcorper et id mi. Etiam consectetur ligula non ex mattis, a mattis velit maximus. Nullam ullamcorper tempus tortor, id placerat lorem hendrerit et. Morbi erat justo, finibus non ornare a, dignissim vitae nulla. Vivamus sagittis commodo laoreet.
+
+                Proin eu risus laoreet, hendrerit turpis ut, iaculis lectus. Ut varius id purus a placerat. Curabitur in nunc tristique, efficitur ligula in, aliquam augue. Aenean tempor risus ac enim scelerisque eleifend. Pellentesque molestie a dolor eu vulputate. Ut suscipit mauris ac ligula eleifend tempor. Fusce ac lacus laoreet, semper nulla sed, luctus est. Duis sed ultricies nulla, eget ultrices dui. Vivamus euismod leo vel magna condimentum, non imperdiet purus efficitur. Integer finibus dolor ipsum, ut feugiat leo tempor ac. Fusce sed magna urna. Sed vulputate placerat congue. Sed lectus purus, mattis a fringilla in, tempor quis justo.
+                Generated 7 paragraphs, 804 words, 5414 bytes of Lorem Ipsum
+            </p>
+           
+        </>
+    )
+}
+export default MentionLegales
