@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Home } from "./pages/Home";
 import DashboardAdminMain from "./pages/DashboardAdmin/DashboardAdminMain";
 import AjoutMaison from "./pages/DashboardAdmin/AjoutMaison";
+import { PageProduit } from "./pages/PageProduit";
 
 
 const App = () => {
