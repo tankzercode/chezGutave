@@ -3,7 +3,7 @@ const db = require("../models/index");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
-
+const crypto = require("crypto");
 // Récupérer tous les utilisateurs
 exports.getAllUsers = async (req, res) => {
   try {
@@ -15,35 +15,36 @@ exports.getAllUsers = async (req, res) => {
 };
 exports.signup = async (req, res) => {
   try {
-    const { email, name, tel, password, is_admin } = req.body;
-    // Créer l'utilisateur dans votre DB, hashage du mot de passe, etc.
-
+    const { email, name, tel, is_admin } = req.body;
+    const randomPassword = crypto.randomBytes(8).toString("hex");
+    const hashedPassword = await bcrypt.hash(randomPassword, 10);
+    const newUser = await db.User.create({
+      email,
+      name,
+      tel,
+      password: hashedPassword,
+      is_admin,
+    });
     let transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 587,
-      secure: false, // true pour 465, false pour les autres ports
+      secure: false,
       auth: {
-        user: process.env.EMAIL_ADDRESS, // Votre adresse email Gmail
-        pass: process.env.EMAIL_PASSWORD, // Votre mot de passe Gmail
+        user: process.env.EMAIL_ADDRESS,
+        pass: process.env.EMAIL_PASSWORD,
       },
       tls: {
-        rejectUnauthorized: false, // Nécessaire pour éviter certaines erreurs en développement
+        rejectUnauthorized: false,
       },
     });
-
-    // Générer le lien d'activation avec un jeton unique
-    const activationLink = `http://localhost:3000/api/${userUniqueToken}`;
-
     let mailOptions = {
-      from: process.env.EMAIL_ADDRESS, // Expéditeur
-      to: email, // Destinataire
-      subject: "Activation de votre compte", // Sujet
+      from: process.env.EMAIL_ADDRESS,
+      to: email,
+      subject: "Votre compte a été créé",
       html: `<h4>Bonjour ${name},</h4>
-             <p>Votre compte a été créé avec succès. Veuillez cliquer sur le lien ci-dessous pour l'activer:</p>
-             <a href="${activationLink}">Activer mon compte</a>
-             <p>Ce lien expire dans 24 heures.</p>`, // corps du texte en HTML
+             <p>Votre compte a été créé avec succès. Voici votre mot de passe temporaire: ${randomPassword}</p>
+             <p>Il est fortement recommandé de changer ce mot de passe lors de votre première connexion.</p>`,
     };
-
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
         console.log(error);
