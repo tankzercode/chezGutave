@@ -1,8 +1,14 @@
 const db = require("../models/index");
+
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
+const uploadsDir = path.join(__dirname, "uploads");
 
+// Vérifie si le dossier 'uploads' existe, sinon le crée
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
 // Fonction pour sauvegarder l'image et obtenir le hash
 function saveImageAndGetHash(imageBuffer) {
   const hash = crypto.createHash("sha256").update(imageBuffer).digest("hex");
@@ -56,7 +62,12 @@ exports.createLogement = async (req, res) => {
   }
 };
 
-// Le reste du code reste inchangé
+// Récupérer tous les logements
 exports.getAllLogements = async (req, res) => {
-  // ... code existant ...
+  try {
+    const logements = await db.Logement.findAll();
+    res.status(200).send(logements);
+  } catch (error) {
+    res.status(400).send(error);
+  }
 };
