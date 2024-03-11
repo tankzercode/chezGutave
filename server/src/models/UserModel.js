@@ -10,6 +10,7 @@ User.init(
       unique: true, // Assure que l'email est unique dans la base de données
     },
     name: DataTypes.STRING,
+    surname: DataTypes.STRING,
     tel: {
       type: DataTypes.STRING,
       unique: true, // Assure que le numéro de téléphone est unique
