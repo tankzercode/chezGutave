@@ -32,7 +32,7 @@ exports.signup = async (req, res) => {
     });
 
     // Générer le lien d'activation avec un jeton unique
-    const activationLink = `http://votre-domaine.com/activation/${userUniqueToken}`;
+    const activationLink = `http://localhost:3000/api/${userUniqueToken}`;
 
     let mailOptions = {
       from: process.env.EMAIL_ADDRESS, // Expéditeur
