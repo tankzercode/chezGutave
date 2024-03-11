@@ -35,3 +35,16 @@
     justify-content: space-between;
     gap: 25px;
 }
+
+
+@media screen and (max-width: 799px) {
+    #search{
+        flex-direction: column;
+        height: auto;
+        position: sticky;
+        padding: 2% 0;
+    }
+    #nombre{
+        flex-direction: column;
+    }
+    }

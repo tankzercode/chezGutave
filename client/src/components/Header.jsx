@@ -20,10 +20,12 @@ export const Header = () => {
 
     const [open2, setOpen2] = useState(false);
     const onOpenModal2 = () => setOpen2(true);
-    const onCloseModal2 = () => setOpen2(false);
+
+
 
     const logOut = () => {
-        user.setUser = null
+        user.setUser(null)
+        navigate('/')
     }
     const menu = () => {
         navigate('/dashboard')
@@ -33,32 +35,39 @@ export const Header = () => {
         navigate('/')
     }
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(`http://localhost:3000/api/signin`, {
-                    credentials: "include"
-                });
-                const data = await response.json();
-                console.log(data);
-                setWelcome(data);
-            } catch (error) {
-                console.error(error);
-            }
-        };
 
-        fetchData(); // Call the function to fetch data when the component mounts
-    }, []);
 
+    const [userData, setUserData] = useState({
+        name: '',// Les données utilisateur à envoyer
+        surname: '',
+        email: '',
+        tel: '',
+        is_admin: false,
+
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setUserData({ ...userData, [name]: value });
+    };
 
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         user.setUser({ name: "giscar", surname: "fdp" })
-        console.log(welcome)
 
 
+        let response = await fetch('http://localhost:3000/api/signin', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        });
+
+        let result = await response.json();
+        alert(result.message);
     }
 
     //     user.setUser({ name: "giscar", surname: "fdp" })
@@ -82,18 +91,56 @@ export const Header = () => {
 
     const handleSubmit2 = async (e) => {
         e.preventDefault();
+        const url = 'http://localhost:3000//api/signup'; // Remplacez avec l'URL réelle de votre API
 
-        user.setUser({ name: "giscar", surname: "fdp" })
 
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                userData,
+            });
+
+            if (!response.ok) {
+                throw new Error('Quelque chose a mal tourné lors de la création de l\'utilisateur');
+            }
+
+            const data = await response.json();
+            console.log('Utilisateur créé avec succès:', data);
+            // Gérer la réponse de succès ici, par exemple, rediriger l'utilisateur ou afficher un message de succès
+        } catch (error) {
+            console.error('Erreur lors de la création de l\'utilisateur:', error);
+            // Gérer l'erreur ici, par exemple, afficher un message d'erreur à l'utilisateur
+        }
+    };
+
+
+
+
+
+    const onCloseModal2 = () => {
+        setOpen2(false);
+        setUserData({
+            name: '',
+            surname: '',
+            email: '',
+            tel: '',
+            is_admin: false,
+        });
     }
+
 
 
     return (
         <>
 
             <header id='header'>
-                <div id='centredlogo' ><img id='logo' src={Logo} onClick={home}></img></div>
-                <div id='title'><h1 id='textheader' onClick={home}>Les Vacances Chez Gustave</h1></div>
+                <section className='responsive'>
+                    <div id='centredlogo' ><img id='logo' src={Logo} onClick={home}></img></div>
+                    <div id='title'><h1 id='textheader' onClick={home}>Les Vacances Chez Gustave</h1></div>
+                </section>
                 <div id='headeruser'>
 
                     {!user.user?.name &&
@@ -102,7 +149,7 @@ export const Header = () => {
                     }
                     {user.user?.name &&
                         <div id='userconnected'>
-                            <h2 id='user'>{user.user.name} {user.user.surname}</h2>
+                            <div className='idnt'><h2 className='user'>{user.user.name}</h2> <h2 className='user'>{user.user.surname}</h2></div>
                             <div className='btns'>
                                 <button className='btnheader ' onClick={menu}>Menus</button>
                                 <button className='btnheader ' onClick={logOut}>Déconnection</button>
@@ -124,13 +171,11 @@ export const Header = () => {
 
 
             <Modal open={open2} onClose={onCloseModal2} center>
-
-                <form id='inscription' action="" onSubmit={handleSubmit2}>
-                    <input className='login' type="text" placeholder='Nom' />
-                    <input className='login' type="text" placeholder='Prénom' />
-                    <input className='login' type="email" placeholder='Votre Email' />
-                    <input className='login' type="tel" required minLength="10" maxLength="10" placeholder='Votre Téléphone' />
-                    <input className='login' type="password" placeholder='Votre mot de passe' />
+                <form method='POST' id='inscription' onSubmit={handleSubmit2}>
+                    <input name='name' className='login' type="text" placeholder='Nom' value={userData.nom} onChange={handleChange} />
+                    <input name='surname' className='login' type="text" placeholder='Prénom' value={userData.prenom} onChange={handleChange} />
+                    <input name='email' className='login' type="email" placeholder='Votre Email' value={userData.email} onChange={handleChange} />
+                    <input name='tel' className='login' type="tel" required minLength="10" maxLength="10" placeholder='Votre Téléphone' value={userData.tel} onChange={handleChange} />
 
                     <input type='submit' className='btnheader' onClick={onCloseModal2} />
                 </form>

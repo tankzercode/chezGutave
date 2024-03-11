@@ -9,3 +9,10 @@
 .horizontalSlider___281Ls{
     height: 90vh;
 }
+
+@media screen and (max-width: 799px) {
+    .horizontalSlider___281Ls{
+        height: 23vh;
+    }
+
+}

@@ -36,3 +36,10 @@ p{
 #ville{
     margin: 0;
 }
+@media screen and (max-width: 799px) {
+    #barreville{
+        overflow-x: scroll;
+        gap: 15px;
+        
+    }
+}

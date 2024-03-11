@@ -14,12 +14,17 @@
 
 
 }
+.responsive{
+    display: flex;
+    justify-content: left;
+    width: 80vw;
+}
 
 #centredlogo {
     display: flex;
     align-items: center;
     justify-content: left;
-    width: 7vw;
+    width: fit-content;
     height: auto;
 }
 
@@ -37,12 +42,13 @@
     font-family: "Quattrocento";
     color: white;
     text-align: center;
+    
 
 
 }
 
 #title {
-    width: 70vw;
+    width: fit-content;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -79,32 +85,11 @@
     color: white;
     cursor: pointer;
 }
-
-.wrong {
+.idnt{
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 15px;
-    color: var(--Rouge);
-    font-size: 18px;
-
-}
-
-.wrongtimes {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    color: var(--Rouge);
-    font-size: 18px;
-    text-align: center;
-
-}
-
-.wrongicon {
-    height: 25px;
-    width: 25px;
 }
 
 #connection {
@@ -141,7 +126,7 @@
     color: var(--Vert);
 }
 
-#user {
+.user {
     color: var(--Or);
     margin: 0;
 }
@@ -159,4 +144,46 @@
 #headeruser {
     width: fit-content;
     margin: 0;
+}
+
+@media screen and (max-width: 799px) {
+    #header {
+        flex-direction: column;
+        align-items: center;
+        width: 100vw;
+    }
+    .responsive{overflow-y: scroll;
+        display: flex;
+        align-items:center;
+    }
+    #textheader {
+        font-size: 18px;
+    }
+
+    #title {
+        width: fit-content;
+    }
+
+    #logo {
+        width: 45px;
+    }
+
+    .user {
+        font-size: 16px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #userconnected {
+        flex-direction: row;
+    }
+
+    #headeruser {
+        width: fit-content;
+    }
+    .idnt{
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
 }

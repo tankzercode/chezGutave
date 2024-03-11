@@ -12,8 +12,9 @@ import { Barrecoupsdecoeur } from '../components/Barrecoupsdecoeur';
 export const Home = () => {
     return (
         <>
-        <Searchbar/>
+        
         <Carousel/>
+        <Searchbar/>
             <section id='home'>
                 <Barreville />
                 <Barrecoupsdecoeur/>
