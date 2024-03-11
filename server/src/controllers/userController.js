@@ -1,11 +1,9 @@
+require("dotenv").config();
 const db = require("../models/index");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
-
-const db = require("../models/index");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
 // Récupérer tous les utilisateurs
 exports.getAllUsers = async (req, res) => {
   try {
@@ -17,9 +15,9 @@ exports.getAllUsers = async (req, res) => {
 };
 exports.signup = async (req, res) => {
   try {
-    const { email, name, tel, password, is_admin } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10); // Hashage du mot de passe
-
+    const { email, name, tel, is_admin } = req.body;
+    const randomPassword = crypto.randomBytes(8).toString("hex");
+    const hashedPassword = await bcrypt.hash(randomPassword, 10);
     const newUser = await db.User.create({
       email,
       name,
@@ -27,8 +25,6 @@ exports.signup = async (req, res) => {
       password: hashedPassword,
       is_admin,
     });
-
-    // Configurer le transporteur Nodemailer
     let transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 587,
@@ -38,36 +34,29 @@ exports.signup = async (req, res) => {
         pass: process.env.EMAIL_PASSWORD,
       },
       tls: {
-        ciphers: "SSLv3",
+        rejectUnauthorized: false,
       },
     });
-
-    // Configurer les options de l'email
     let mailOptions = {
       from: process.env.EMAIL_ADDRESS,
-      to: newUser.email,
-      subject: "Votre mot de passe pour Chez_Gustave",
-      text: `Bonjour, voici votre mot de passe : ${newUser.password}`,
+      to: email,
+      subject: "Votre compte a été créé",
+      html: `<h4>Bonjour ${name},</h4>
+             <p>Votre compte a été créé avec succès. Voici votre mot de passe temporaire: ${randomPassword}</p>
+             <p>Il est fortement recommandé de changer ce mot de passe lors de votre première connexion.</p>`,
     };
-
-    // Envoyer l'email
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
         console.log(error);
+        res.status(500).send("Erreur lors de l'envoi de l'email");
       } else {
         console.log("Email envoyé : " + info.response);
+        res.send("Utilisateur créé avec succès et email envoyé");
       }
     });
-
-    res
-      .status(201)
-      .send({ message: "Utilisateur créé avec succès", user: newUser });
   } catch (error) {
     console.error(error);
-    res.status(400).send({
-      message: "Erreur lors de la création de l'utilisateur",
-      error: error.message,
-    });
+    res.status(400).send("Erreur lors de la création de l'utilisateur");
   }
 };
 
