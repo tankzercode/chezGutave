@@ -1,59 +1,55 @@
 ```markdown
-# Documentation de l'API pour les évaluations (Ratings)
+# Documentation de l'API pour les Évaluations
 
-## Créer une nouvelle évaluation (Rating)
+Cette documentation détaille les endpoints de l'API liés à la gestion des évaluations dans l'application.
 
-- **URL**
-  `/createRating`
+## Endpoints
 
-- **Méthode**
-  `POST`
+### Créer une nouvelle évaluation
 
-- **Données requises**
+- **Description**: Permet de créer une nouvelle évaluation pour une réservation.
+- **URL**: `/createRating`
+- **Méthode**: `POST`
+- **Données requises**:
 
-  ```json
-  {
-    "rating_value": "Integer",
-    "comment": "String",
-    "reservationId": "Integer"
-  }
-  ```
+```json
+{
+  "rating_value": "Integer",
+  "comment": "String",
+  "reservationId": "Integer"
+}
+```
 
-- **Réponse de succès**
+- **Réponse de succès**:
+  - **Code**: 201
+  - **Contenu**:
 
-  - **Code** : 201
-  - **Contenu** :
+```json
+{
+  "id": "Integer",
+  "rating_value": "Integer",
+  "comment": "String",
+  "reservationId": "Integer"
+}
+```
 
-  ```json
+### Récupérer toutes les évaluations
+
+- **Description**: Permet de récupérer toutes les évaluations enregistrées.
+- **URL**: `/getAllRatings`
+- **Méthode**: `GET`
+- **Réponse de succès**:
+  - **Code**: 200
+  - **Contenu**:
+
+```json
+[
   {
     "id": "Integer",
     "rating_value": "Integer",
     "comment": "String",
     "reservationId": "Integer"
-  }
-  ```
-
-## Récupérer toutes les évaluations (Ratings)
-
-- **URL**
-  `/getAllRatings`
-
-- **Méthode**
-  `GET`
-
-- **Réponse de succès**
-
-  - **Code** : 200
-  - **Contenu** :
-
-  ```json
-  [
-    {
-      "id": "Integer",
-      "rating_value": "Integer",
-      "comment": "String",
-      "reservationId": "Integer"
-    },
-    ...
-  ]
-  ```
+  },
+  ...
+]
+```
