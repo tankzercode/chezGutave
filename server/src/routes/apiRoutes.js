@@ -1,6 +1,13 @@
 const express = require("express");
 const router = express.Router();
-
+const cors = require('cors')
+router.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
+    credentials: true,
+  })
+);
 // Importation des contrôleurs
 const userController = require("../controllers/userController");
 const logementController = require("../controllers/logementController");

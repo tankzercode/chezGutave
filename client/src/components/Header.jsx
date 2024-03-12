@@ -42,7 +42,7 @@ export const Header = () => {
         surname: '',
         email: '',
         tel: '',
-        is_admin: false,
+        is_admin: false
 
     });
 
@@ -58,51 +58,51 @@ export const Header = () => {
         user.setUser({ name: "giscar", surname: "fdp" })
 
 
-        let response = await fetch('http://localhost:3000/api/signin', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        });
+        //     let response = await fetch('http://localhost:3000/api/signin', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify(user)
+        //     });
 
-        let result = await response.json();
-        alert(result.message);
+        //     let result = await response.json();
+        //     alert(result.message);
+        // }
+
+        //     user.setUser({ name: "giscar", surname: "fdp" })
+
+
+        //             useEffect(() => {
+        //                 fetch(`http://localhost:3000/api/signin`), {
+        //                     credentials: "include",
+        //                   }
+        //                     .then(res => res.json())
+        //                     .then(async data => {
+        //                         console.log(data);
+        //                         setWelcome(data)
+        //                     })
+        //                     .catch(err => console.error(err))
+
+        //             }, []);
+
     }
-
-    //     user.setUser({ name: "giscar", surname: "fdp" })
-
-
-    //             useEffect(() => {
-    //                 fetch(`http://localhost:3000/api/signin`), {
-    //                     credentials: "include",
-    //                   }
-    //                     .then(res => res.json())
-    //                     .then(async data => {
-    //                         console.log(data);
-    //                         setWelcome(data)
-    //                     })
-    //                     .catch(err => console.error(err))
-
-    //             }, []);
-
-    //         }
 
 
     const handleSubmit2 = async (e) => {
+        console.log(e)
         e.preventDefault();
-        const url = 'http://localhost:3000//api/signup'; // Remplacez avec l'URL réelle de votre API
+        const url = 'http://0.0.0.0//api/signup'; // Remplacez avec l'URL réelle de votre API
 
 
         try {
             const response = await fetch(url, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                userData,
-            });
-
+            credentials : 'include',
+                body: JSON.stringify(userData)
+            },
+            );
+            console.log(response)
             if (!response.ok) {
                 throw new Error('Quelque chose a mal tourné lors de la création de l\'utilisateur');
             }
@@ -120,15 +120,17 @@ export const Header = () => {
 
 
 
-    const onCloseModal2 = () => {
+    const onCloseModal2 = (e) => {
         setOpen2(false);
+        handleSubmit2(e);
         setUserData({
             name: '',
             surname: '',
             email: '',
             tel: '',
-            is_admin: false,
+            is_admin: false
         });
+        console.log(userData)
     }
 
 
@@ -172,8 +174,8 @@ export const Header = () => {
 
             <Modal open={open2} onClose={onCloseModal2} center>
                 <form method='POST' id='inscription' onSubmit={handleSubmit2}>
-                    <input name='name' className='login' type="text" placeholder='Nom' value={userData.nom} onChange={handleChange} />
-                    <input name='surname' className='login' type="text" placeholder='Prénom' value={userData.prenom} onChange={handleChange} />
+                    <input name='name' className='login' type="text" placeholder='Prénom' value={userData.name} onChange={handleChange} />
+                    <input name='surname' className='login' type="text" placeholder='Nom' value={userData.surname} onChange={handleChange} />
                     <input name='email' className='login' type="email" placeholder='Votre Email' value={userData.email} onChange={handleChange} />
                     <input name='tel' className='login' type="tel" required minLength="10" maxLength="10" placeholder='Votre Téléphone' value={userData.tel} onChange={handleChange} />
 
