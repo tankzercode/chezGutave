@@ -15,6 +15,7 @@ User.init(
       type: DataTypes.STRING,
       unique: true, // Assure que le numéro de téléphone est unique
     },
+
     password: DataTypes.STRING,
     is_admin: DataTypes.BOOLEAN,
   },

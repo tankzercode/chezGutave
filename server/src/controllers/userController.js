@@ -15,12 +15,13 @@ exports.getAllUsers = async (req, res) => {
 };
 exports.signup = async (req, res) => {
   try {
-    const { email, name, tel, is_admin } = req.body;
+    const { email, name, surname, tel, is_admin } = req.body;
     const randomPassword = crypto.randomBytes(8).toString("hex");
     const hashedPassword = await bcrypt.hash(randomPassword, 10);
     const newUser = await db.User.create({
       email,
       name,
+      surname,
       tel,
       password: hashedPassword,
       is_admin,
