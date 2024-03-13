@@ -1,4 +1,4 @@
-```markdown
+````markdown
 # Documentation de l'API pour les Logements
 
 Cette documentation décrit les endpoints de l'API concernant la gestion des logements dans l'application.
@@ -62,3 +62,4 @@ Cette documentation décrit les endpoints de l'API concernant la gestion des log
   ...
 ]
 ```
+````

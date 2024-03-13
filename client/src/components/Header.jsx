@@ -1,49 +1,41 @@
-import { useContext, useEffect, useState } from 'react'
-import Logo from '/crown.png'
-import UserContext from '../context/user_context'
+import { useContext, useState } from 'react';
+import Logo from '/crown.png';
+import UserContext from '../context/user_context';
 import '../styles/Header.css';
-import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
-import { Invalide } from './Invalide';
-import { Temps } from './Temps';
 import { useNavigate } from 'react-router';
-import { Home } from '../pages/Home';
 
 export const Header = () => {
-    const user = useContext(UserContext)
-    const navigate = useNavigate()
-    const [welcome, setWelcome] = useState()
-
+    const user = useContext(UserContext);
+    const navigate = useNavigate();
     const [open, setOpen] = useState(false);
+    const [openSignup, setOpenSignup] = useState(false);
+
     const onOpenModal = () => setOpen(true);
     const onCloseModal = () => setOpen(false);
 
-    const [open2, setOpen2] = useState(false);
-    const onOpenModal2 = () => setOpen2(true);
-
-
+    const onOpenSignupModal = () => setOpenSignup(true);
+    const onCloseSignupModal = () => setOpenSignup(false);
 
     const logOut = () => {
-        user.setUser(null)
-        navigate('/')
-    }
-    const menu = () => {
-        navigate('/dashboard')
-    }
+        user.setUser(null);
+        navigate('/');
+    };
 
-    const home = () => {
-        navigate('/')
-    }
+    const navigateToDashboard = () => {
+        navigate('/dashboard');
+    };
 
-
+    const navigateToHome = () => {
+        navigate('/');
+    };
 
     const [userData, setUserData] = useState({
-        name: '',// Les données utilisateur à envoyer
+        name: '',
         surname: '',
         email: '',
         tel: '',
         is_admin: false,
-
     });
 
     const handleChange = (e) => {
@@ -51,139 +43,160 @@ export const Header = () => {
         setUserData({ ...userData, [name]: value });
     };
 
-
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        user.setUser({ name: "giscar", surname: "fdp" })
-
-
-        let response = await fetch('http://localhost:3000/api/signin', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        });
-
-        let result = await response.json();
-        alert(result.message);
-    }
-
-    //     user.setUser({ name: "giscar", surname: "fdp" })
-
-
-    //             useEffect(() => {
-    //                 fetch(`http://localhost:3000/api/signin`), {
-    //                     credentials: "include",
-    //                   }
-    //                     .then(res => res.json())
-    //                     .then(async data => {
-    //                         console.log(data);
-    //                         setWelcome(data)
-    //                     })
-    //                     .catch(err => console.error(err))
-
-    //             }, []);
-
-    //         }
-
-
-    const handleSubmit2 = async (e) => {
-        e.preventDefault();
-        const url = 'http://localhost:3000//api/signup'; // Remplacez avec l'URL réelle de votre API
-
-
+    
+        // Préparez l'objet des données à envoyer
+        const loginData = {
+            email: userData.email, // Assurez-vous que userData contient un champ email rempli
+            password: userData.password, // Assurez-vous que userData contient un champ password rempli
+        };
+    
         try {
-            const response = await fetch(url, {
+            const response = await fetch('http://localhost:3000/api/signin', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                userData,
+                body: JSON.stringify(loginData),
             });
-
+    
             if (!response.ok) {
-                throw new Error('Quelque chose a mal tourné lors de la création de l\'utilisateur');
+                throw new Error('Erreur de connexion. Veuillez vérifier vos identifiants.');
             }
-
-            const data = await response.json();
-            console.log('Utilisateur créé avec succès:', data);
-            // Gérer la réponse de succès ici, par exemple, rediriger l'utilisateur ou afficher un message de succès
+    
+            const result = await response.json();
+            
+            // Assumons que votre API retourne l'utilisateur connecté dans `result.user` et que vous voulez le stocker dans le contexte
+            user.setUser(result.user);
+            alert('Connexion réussie !');
+    
+            // Redirection vers la page d'accueil ou dashboard après la connexion
+            navigate('/dashboard'); // ou navigate('/') pour la page d'accueil
         } catch (error) {
-            console.error('Erreur lors de la création de l\'utilisateur:', error);
-            // Gérer l'erreur ici, par exemple, afficher un message d'erreur à l'utilisateur
+            console.error('Erreur lors de la connexion:', error);
+            alert(error.message);
         }
     };
 
-
-
-
-
-    const onCloseModal2 = () => {
-        setOpen2(false);
-        setUserData({
-            name: '',
-            surname: '',
-            email: '',
-            tel: '',
-            is_admin: false,
-        });
-    }
-
-
-
+    const handleSubmitSignup = async (e) => {
+        e.preventDefault();
+      
+        // Préparez l'objet des données à envoyer pour l'inscription
+        const signupData = {
+          name: userData.name,
+          surname: userData.surname,
+          email: userData.email,
+          tel: userData.tel,
+          password: userData.password, // Assurez-vous d'ajouter un champ pour le mot de passe dans votre formulaire et dans votre état `userData`
+        };
+      
+        try {
+          const response = await fetch('http://localhost:3000/api/signup', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(signupData),
+          });
+      
+          if (!response.ok) {
+            const errorData = await response.json();
+            // Si la réponse contient un message d'erreur, utilisez-le
+            throw new Error(errorData.message || 'Une erreur s’est produite lors de l’inscription.');
+          }
+      
+          const result = await response.json(); // Récupère la réponse de l'API
+      
+          // Affichez un message de succès et connectez l'utilisateur automatiquement ou redirigez-le vers une autre page
+          alert('Inscription réussie ! Vous êtes maintenant inscrit et connecté.');
+          navigate('/dashboard'); // ou navigate('/') pour la page d'accueil
+        } catch (error) {
+          console.error('Erreur lors de l’inscription:', error);
+          // Ici, nous vérifions le message d'erreur pour personnaliser la réponse à l'utilisateur
+          let messageErreur;
+          switch (error.message) {
+            case 'Cette adresse email est déjà utilisée.':
+              messageErreur = 'Cette adresse email est déjà enregistrée. Veuillez en utiliser une autre.';
+              break;
+            case 'Le mot de passe doit contenir au moins 8 caractères.':
+              messageErreur = 'Votre mot de passe est trop court. Veuillez en choisir un plus long.';
+              break;
+            default:
+              messageErreur = 'Un problème est survenu lors de l’inscription. Veuillez réessayer plus tard.';
+          }
+          alert(messageErreur);
+        }
+      };
+      
     return (
         <>
-
             <header id='header'>
                 <section className='responsive'>
-                    <div id='centredlogo' ><img id='logo' src={Logo} onClick={home}></img></div>
-                    <div id='title'><h1 id='textheader' onClick={home}>Les Vacances Chez Gustave</h1></div>
+                    <div id='centredlogo'><img id='logo' src={Logo} alt="Logo" onClick={navigateToHome}></img></div>
+                    <div id='title'><h1 id='textheader' onClick={navigateToHome}>Les Vacances Chez Gustave</h1></div>
                 </section>
                 <div id='headeruser'>
-
-                    {!user.user?.name &&
-                        <div className='btns'>  <button className='btnheader' onClick={onOpenModal}>Se connecter</button>
-                            <button className='btnheader' onClick={onOpenModal2}>S'inscrire</button> </div>
-                    }
-                    {user.user?.name &&
+                    {!user.user?.name ? (
+                        <div className='btns'>
+                            <button className='btnheader' onClick={onOpenModal}>Se connecter</button>
+                            <button className='btnheader' onClick={onOpenSignupModal}>S'inscrire</button>
+                        </div>
+                    ) : (
                         <div id='userconnected'>
                             <div className='idnt'><h2 className='user'>{user.user.name}</h2> <h2 className='user'>{user.user.surname}</h2></div>
                             <div className='btns'>
-                                <button className='btnheader ' onClick={menu}>Menus</button>
-                                <button className='btnheader ' onClick={logOut}>Déconnection</button>
+                                <button className='btnheader' onClick={navigateToDashboard}>Menus</button>
+                                <button className='btnheader' onClick={logOut}>Déconnection</button>
                             </div>
                         </div>
-                    }
-
+                    )}
                 </div>
             </header>
 
-            <Modal open={open} onClose={onCloseModal} center>
-                <form id='connection' action="" onSubmit={handleSubmit}>
-                    <input className='login' type="email" placeholder='Votre Email' />
-                    <input className='login' type="password" placeholder="Votre mot de passe" />
-                    <input type='submit' className='btnheader' onClick={onCloseModal} />
-                </form>
-            </Modal>
-
-
-
-            <Modal open={open2} onClose={onCloseModal2} center>
-                <form method='POST' id='inscription' onSubmit={handleSubmit2}>
-                    <input name='name' className='login' type="text" placeholder='Nom' value={userData.nom} onChange={handleChange} />
-                    <input name='surname' className='login' type="text" placeholder='Prénom' value={userData.prenom} onChange={handleChange} />
-                    <input name='email' className='login' type="email" placeholder='Votre Email' value={userData.email} onChange={handleChange} />
-                    <input name='tel' className='login' type="tel" required minLength="10" maxLength="10" placeholder='Votre Téléphone' value={userData.tel} onChange={handleChange} />
-
-                    <input type='submit' className='btnheader' onClick={onCloseModal2} />
-                </form>
-
-            </Modal>
+            <Modal open={openSignup} onClose={onCloseSignupModal} center>
+    <form id='inscription' onSubmit={handleSubmitSignup}>
+        <input
+            name='name'
+            className='login'
+            type='text'
+            placeholder='Nom'
+            value={userData.name}
+            onChange={handleChange}
+            required
+        />
+        <input
+            name='surname'
+            className='login'
+            type='text'
+            placeholder='Prénom'
+            value={userData.surname}
+            onChange={handleChange}
+            required
+        />
+        <input
+            name='email'
+            className='login'
+            type='email'
+            placeholder='Email'
+            value={userData.email}
+            onChange={handleChange}
+            required
+        />
+        <input
+            name='tel'
+            className='login'
+            type='tel'
+            placeholder='Téléphone'
+            value={userData.tel}
+            onChange={handleChange}
+            required
+        />
+        <button type='submit' className='btnheader'>S'inscrire</button>
+    </form>
+</Modal>
 
 
         </>
-    )
-
+    );
 }
