@@ -7,7 +7,7 @@ GET http://localhost:3000/api/
 GET http://localhost:3000/api/users/:id
 
 ### Create Account
-POST http://localhost:3000/api/singup
+POST http://0.0.0.0:3000/api/signup
 Content-Type: application/json
 
 {

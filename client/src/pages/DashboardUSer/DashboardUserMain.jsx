@@ -5,7 +5,7 @@ import UserContext from "../../context/user_context"
 import '../../styles/DashboardAdminMain.css'
 
 
-const DashboardAdminMain = () => {
+const DashboardUserMain = () => {
 
     const user = useContext(UserContext)
     console.log(user.user)
@@ -19,6 +19,8 @@ const DashboardAdminMain = () => {
         <>
             <menu id="menu">
                 <ul>
+                    <li className="itemmenu"><Link className="lienmenu" to="InfoUser">Mes Informations</Link></li>
+
                     <li className="itemmenu"><Link className="lienmenu" to="AjoutMaison">Ajouter une maison</Link></li>
                 </ul>
             </menu>
@@ -26,4 +28,4 @@ const DashboardAdminMain = () => {
         </>
     )
 }
-export default DashboardAdminMain
+export default DashboardUserMain
