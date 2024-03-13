@@ -2,6 +2,8 @@ import { useContext, useEffect } from "react"
 import { Outlet, useNavigate } from "react-router"
 import { Link } from "react-router-dom"
 import UserContext from "../../context/user_context"
+import '../../styles/DashboardAdminMain.css'
+
 
 const DashboardAdminMain = () => {
 
@@ -15,7 +17,11 @@ const DashboardAdminMain = () => {
     }, [])
     return (
         <>
-            <Link to="AjoutMaison">Ajouter une maison</Link>
+            <menu id="menu">
+                <ul>
+                    <li className="itemmenu"><Link className="lienmenu" to="AjoutMaison">Ajouter une maison</Link></li>
+                </ul>
+            </menu>
             <Outlet />
         </>
     )

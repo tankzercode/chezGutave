@@ -11,14 +11,8 @@ import { Home } from '../pages/Home';
 
 export const Header = () => {
     const user = useContext(UserContext)
-    console.log(user);
     const navigate = useNavigate()
-
-    const [login, setLogin] = useState('');
-    const [enteredPassword, setPassword] = useState('');
-    const [isPasswordValid, setIsPasswordValid] = useState(true);
-    const [isTimes, setIsTimes] = useState(false);
-    const [canAttempt, setCanAttempt] = useState(true);
+    const [welcome, setWelcome] = useState()
 
     const [open, setOpen] = useState(false);
     const onOpenModal = () => setOpen(true);
@@ -26,130 +20,137 @@ export const Header = () => {
 
     const [open2, setOpen2] = useState(false);
     const onOpenModal2 = () => setOpen2(true);
-    const onCloseModal2 = () => setOpen2(false);
+
+
+
     const logOut = () => {
-        user.setUser = null
+        user.setUser(null)
+        navigate('/')
     }
     const menu = () => {
         navigate('/dashboard')
     }
 
-    const home =()=>{
+    const home = () => {
         navigate('/')
     }
 
 
 
-    useEffect(() => {
-        let timer;
+    const [userData, setUserData] = useState({
+        name: '',// Les données utilisateur à envoyer
+        surname: '',
+        email: '',
+        tel: '',
+        is_admin: false,
 
-        const resetState = () => {
-            setIsTimes(false);
-            setCanAttempt(true);
-            setIsPasswordValid(true);
+    });
 
-        };
-        const resetSelected = () => {
-            setLogin('');
-
-
-
-        }
-
-        if (isTimes) {
-            timer = setTimeout(() => {
-                resetState();
-                resetSelected();
-                // Vous pouvez utiliser navigate('/') pour revenir à la page d'accueil,
-                // mais cela dépend de votre structure de routes.
-                // Si '/admin' est la page d'accueil, vous devrez ajuster en conséquence.
-                // navigate('/');
-            }, 10000);
-        }
-
-        return () => {
-            clearTimeout(timer);
-
-            // Autres actions de nettoyage si nécessaire
-        };
-    }, [isTimes, canAttempt, isPasswordValid, login]);
-
-    const handleLoginChange = (e) => {
-        setLogin(e.target.value);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setUserData({ ...userData, [name]: value });
     };
 
-    const handlePasswordChange = (e) => {
-        setPassword(e.target.value);
-    };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         user.setUser({ name: "giscar", surname: "fdp" })
 
-        if (!canAttempt) {
-            setIsTimes(true);
-            return;
-        }
 
-        // try {
-        //     const response = await fetch('http://localhost:8000/login', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({
-        //             firm_name: login,
-        //             password: enteredPassword,
-        //         }),
-        //     });
+        let response = await fetch('http://localhost:3000/api/signin', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        });
 
-        // if (response.ok) {
-        //     const data = await response.json();
-
-        // if (data && data.token) {
-        //     localStorage.setItem('jwtToken', data.token);
-
-        //     const isAdmin = data.user.is_admin;
-
-        //     if (isAdmin) {
-        //         navigate(`/admin/`, {
-        //             state: { formattedFirmName, selectedFirm, firms },
-        //         });
-        //     } else {
-        //         navigate(`/utilisateur/${formattedFirmName}`, {
-        //             state: { formattedFirmName, selectedFirm, user: data.user },
-        //         });
-        //     }
-        // }
-        //     } else {
-        //         setIsPasswordValid(false);
-        //         setIsTimes(true);
-        //         setCanAttempt(false);
-        //     }
-        //  catch (error) {
-        //         console.error('Erreur lors de la connexion :', error);
-        //     }
-        // }
+        let result = await response.json();
+        alert(result.message);
     }
+
+    //     user.setUser({ name: "giscar", surname: "fdp" })
+
+
+    //             useEffect(() => {
+    //                 fetch(`http://localhost:3000/api/signin`), {
+    //                     credentials: "include",
+    //                   }
+    //                     .then(res => res.json())
+    //                     .then(async data => {
+    //                         console.log(data);
+    //                         setWelcome(data)
+    //                     })
+    //                     .catch(err => console.error(err))
+
+    //             }, []);
+
+    //         }
+
+
+    const handleSubmit2 = async (e) => {
+        e.preventDefault();
+        const url = 'http://localhost:3000//api/signup'; // Remplacez avec l'URL réelle de votre API
+
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                userData,
+            });
+
+            if (!response.ok) {
+                throw new Error('Quelque chose a mal tourné lors de la création de l\'utilisateur');
+            }
+
+            const data = await response.json();
+            console.log('Utilisateur créé avec succès:', data);
+            // Gérer la réponse de succès ici, par exemple, rediriger l'utilisateur ou afficher un message de succès
+        } catch (error) {
+            console.error('Erreur lors de la création de l\'utilisateur:', error);
+            // Gérer l'erreur ici, par exemple, afficher un message d'erreur à l'utilisateur
+        }
+    };
+
+
+
+
+
+    const onCloseModal2 = () => {
+        setOpen2(false);
+        setUserData({
+            name: '',
+            surname: '',
+            email: '',
+            tel: '',
+            is_admin: false,
+        });
+    }
+
 
 
     return (
         <>
 
             <header id='header'>
-                <div id='centredlogo' ><img id='logo' src={Logo} onClick={home}></img></div>
-                <div><h1 id='textheader'>Les Vacances Chez Gustave</h1></div>
+                <section className='responsive'>
+                    <div id='centredlogo' ><img id='logo' src={Logo} onClick={home}></img></div>
+                    <div id='title'><h1 id='textheader' onClick={home}>Les Vacances Chez Gustave</h1></div>
+                </section>
                 <div id='headeruser'>
 
                     {!user.user?.name &&
-                        <div className='btn'>  <button className='btnheader' onClick={onOpenModal}>Se connecter</button>
+                        <div className='btns'>  <button className='btnheader' onClick={onOpenModal}>Se connecter</button>
                             <button className='btnheader' onClick={onOpenModal2}>S'inscrire</button> </div>
                     }
                     {user.user?.name &&
                         <div id='userconnected'>
-                            <h2 id='user'>{user.user.name} {user.user.surname}</h2>
-                            <div className='btn'>
+                            <div className='idnt'><h2 className='user'>{user.user.name}</h2> <h2 className='user'>{user.user.surname}</h2></div>
+                            <div className='btns'>
                                 <button className='btnheader ' onClick={menu}>Menus</button>
                                 <button className='btnheader ' onClick={logOut}>Déconnection</button>
                             </div>
@@ -160,25 +161,21 @@ export const Header = () => {
             </header>
 
             <Modal open={open} onClose={onCloseModal} center>
-                {!isPasswordValid && <div><Invalide /></div>}
                 <form id='connection' action="" onSubmit={handleSubmit}>
-                    <input className='login' type="email" value={login} onChange={handleLoginChange} placeholder='Votre Email' />
-                    <input className='login' type="password" placeholder="Votre mot de passe" value={enteredPassword} onChange={handlePasswordChange} />
+                    <input className='login' type="email" placeholder='Votre Email' />
+                    <input className='login' type="password" placeholder="Votre mot de passe" />
                     <input type='submit' className='btnheader' onClick={onCloseModal} />
                 </form>
-                {isTimes && <div><Temps /></div>}
             </Modal>
 
 
 
             <Modal open={open2} onClose={onCloseModal2} center>
-
-                <form id='inscription' action="" onSubmit={handleSubmit}>
-                    <input className='login' type="text" onChange={handleLoginChange} placeholder='Nom' />
-                    <input className='login' type="text" onChange={handleLoginChange} placeholder='Prénom' />
-                    <input className='login' type="email" onChange={handleLoginChange} placeholder='Votre Email' />
-                    <input className='login' type="phone" onChange={handleLoginChange} placeholder='Votre Téléphone' />
-                    <input className='login' type="password" onChange={handleLoginChange} placeholder='Votre mot de passe' />
+                <form method='POST' id='inscription' onSubmit={handleSubmit2}>
+                    <input name='name' className='login' type="text" placeholder='Nom' value={userData.nom} onChange={handleChange} />
+                    <input name='surname' className='login' type="text" placeholder='Prénom' value={userData.prenom} onChange={handleChange} />
+                    <input name='email' className='login' type="email" placeholder='Votre Email' value={userData.email} onChange={handleChange} />
+                    <input name='tel' className='login' type="tel" required minLength="10" maxLength="10" placeholder='Votre Téléphone' value={userData.tel} onChange={handleChange} />
 
                     <input type='submit' className='btnheader' onClick={onCloseModal2} />
                 </form>

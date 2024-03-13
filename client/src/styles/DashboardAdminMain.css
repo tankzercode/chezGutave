@@ -1,0 +1,28 @@
+#menu{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100vw;
+    background-color: var(--Beige);
+    box-shadow: 1px 5px 7px #1d1d1daf;
+    padding: 0.5%;
+    position: fixed;
+    margin: 0;
+    left: 0;
+    
+}
+.lienmenu{
+    list-style: none;
+    text-decoration: none;
+    color: var(--Vert);
+    font-size: 18px;
+}
+
+.itemmenu :hover{
+    color: black;
+    text-decoration: underline;
+    font-weight: 700;
+}
+.lienmenu ::after{
+    color: var(--Vert);
+}

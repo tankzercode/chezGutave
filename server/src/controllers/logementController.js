@@ -25,6 +25,7 @@ exports.createLogement = async (req, res) => {
   try {
     // Supposer que les images sont envoyées sous forme de buffer dans une requête multipart/form-data
     const {
+      titre,
       secteur,
       description,
       tarif_bas,
@@ -44,6 +45,7 @@ exports.createLogement = async (req, res) => {
 
     const newLogement = await db.Logement.create({
       images: imageFilenames, // Stockez les noms des fichiers au lieu des buffers d'image
+      titre,
       secteur,
       description,
       tarif_bas,
