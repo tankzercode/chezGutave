@@ -3,7 +3,9 @@ export const NomVilla = () => {
 
     return(
         <>
-<h2></h2>
+        <div id='nomDiv'>
+<h2 id='nomVilla'>New Home</h2>
+</div>
 </>
     )
 }

@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 export const ButtonVilla = () => {
 
-    return(<>
-<input>
-<button>
-Réserver un Séjour
-</button>
-</input>
-</>
+    return(        
+    <>
+        <input id='buttonvilla' type="button" value="Réserver un Séjour" onClick={() => alert("Réserver")} />
+    </>
     )
 }

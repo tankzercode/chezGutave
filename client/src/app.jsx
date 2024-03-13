@@ -22,8 +22,8 @@ const App = () => {
                         <Route path='/' element={<Home />} />
                         <Route path='/dashboard' element={<DashboardAdminMain />} >
                             <Route path="AjoutMaison" element={<AjoutMaison />}></Route>
-
                         </Route>
+                        <Route path="villa" element={<PageProduit />}></Route>
                     </Routes>
                 </BrowserRouter>
             </UserContext.Provider>

@@ -8,8 +8,7 @@ export const StarRating = () => {
   };
 
   return (
-    <div>
-     
+    <div >
       {[...Array(5)].map((_, index) => {
         const ratingValue = index + 1;
         return (
@@ -19,14 +18,15 @@ export const StarRating = () => {
             onClick={() => handleRatingChange(ratingValue)}
             style={{
                 cursor: 'pointer',
-                color: ratingValue <= rating ? 'gold' : 'silver',
-                fontSize: '35px', // Changer la taille des étoiles ici
+                color: ratingValue <= rating ? 'gold' : 'silver', //// Couleur des étoiles
+                fontSize: '35px', // Taille des étoiles
               }}
           >
             &#9733;
           </span>
         );
       })}
+      
     </div>
   );
 };

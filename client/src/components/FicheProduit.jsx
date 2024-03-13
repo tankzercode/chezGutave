@@ -5,12 +5,14 @@ import { LocalisationVilla } from './LocalisationVilla';
 import { DescriptionVilla } from './DescriptionVilla';
 import { StarRating } from './StarRating';
 import { ButtonVilla } from './ButtonVilla';
+import '/src/index.css'
+
 export const FicheProduit = () => {
 
     return(
 <>
-<span>
-    <div>
+<div id='ficheproduit'>
+    <div id="ficheleft">
         <ImgVilla/>
         <StarRating/>
     </div>
@@ -18,9 +20,12 @@ export const FicheProduit = () => {
         <NomVilla/>
         <LocalisationVilla/>
         <DescriptionVilla/>
-        <ButtonVilla/>
+      
     </div>
-</span>
+    <div id='buttonDiv'>
+    <ButtonVilla/>
+    </div>
+</div>
 </>
     )
 }
