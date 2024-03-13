@@ -1,0 +1,27 @@
+#footer{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100vw;
+    background-color: rgb(216, 216, 216);
+    padding: 0.5%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    
+}
+.lienfooter{
+    list-style: none;
+    text-decoration: none;
+    color: var(--Vert);
+    font-size: 18px;
+}
+
+.lienfooter:hover{
+    color: black;
+    text-decoration: underline;
+    font-weight: 700;
+}
+.lienfooter ::after{
+    color: var(--Vert);
+}

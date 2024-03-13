@@ -1,4 +1,4 @@
-const cors = require("cors");
+const cors = require('cors')
 const app = require("./app");
 const database = require("./database");
 const express = require("express");

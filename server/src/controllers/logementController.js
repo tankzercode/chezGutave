@@ -42,6 +42,7 @@ exports.uploadImages = (req, res, next) => {
 exports.createLogement = async (req, res) => {
   try {
     const {
+      titre,
       secteur,
       description,
       tarif_bas,
@@ -58,7 +59,8 @@ exports.createLogement = async (req, res) => {
     const imageFilenames = req.files.map((file) => file.filename);
 
     const newLogement = await db.Logement.create({
-      images: imageFilenames, // stockez les noms de fichier générés par Multer
+      images: imageFilenames, // Stockez les noms des fichiers au lieu des buffers d'image
+      titre,
       secteur,
       description,
       tarif_bas,
