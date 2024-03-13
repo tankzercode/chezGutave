@@ -4,18 +4,25 @@ import UserContext from '../context/user_context';
 import '../styles/Header.css';
 import { Modal } from 'react-responsive-modal';
 import { useNavigate } from 'react-router';
-
+import axios from 'axios'
 export const Header = () => {
+
+    const user = useContext(UserContext)
+    console.log(user)
+    const navigate = useNavigate()
+
     const user = useContext(UserContext);
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [openSignup, setOpenSignup] = useState(false);
 
     const onOpenModal = () => setOpen(true);
-    const onCloseModal = () => setOpen(false);
 
-    const onOpenSignupModal = () => setOpenSignup(true);
-    const onCloseSignupModal = () => setOpenSignup(false);
+
+    const [open2, setOpen2] = useState(false);
+    const onOpenModal2 = () => setOpen2(true);
+
+
 
     const logOut = () => {
         user.setUser(null);
@@ -23,112 +30,107 @@ export const Header = () => {
     };
 
     const navigateToDashboard = () => {
-        navigate('/dashboard');
+        navigate('/dashboardUSer');
     };
 
-    const navigateToHome = () => {
-        navigate('/');
-    };
+    const home = () => {
+        navigate('/')
+    }
+    const [userConnect, setUserConnect] = useState({
+
+        email: '',
+        password: ''
+
+    });
+
 
     const [userData, setUserData] = useState({
         name: '',
         surname: '',
         email: '',
         tel: '',
-        is_admin: false,
+        is_admin: false
     });
 
     const handleChange = (e) => {
+        const { name, value } = e.target;
+        setUserConnect({ ...userConnect, [name]: value });
+    };
+
+    const handleChange2 = (e) => {
         const { name, value } = e.target;
         setUserData({ ...userData, [name]: value });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
-        // Préparez l'objet des données à envoyer
-        const loginData = {
-            email: userData.email, // Assurez-vous que userData contient un champ email rempli
-            password: userData.password, // Assurez-vous que userData contient un champ password rempli
-        };
-    
+
         try {
-            const response = await fetch('http://localhost:3000/api/signin', {
-                method: 'POST',
+            const response = await axios.post('http://0.0.0.0:3000/api/signin', userConnect, {
                 headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(loginData),
+                    "Access-Control-Allow-Origin": "http://0.0.0.0:3000",
+                    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+                    "Content-Type": "application/json"
+                }
             });
-    
-            if (!response.ok) {
-                throw new Error('Erreur de connexion. Veuillez vérifier vos identifiants.');
-            }
-    
-            const result = await response.json();
-            
-            // Assumons que votre API retourne l'utilisateur connecté dans `result.user` et que vous voulez le stocker dans le contexte
-            user.setUser(result.user);
-            alert('Connexion réussie !');
-    
-            // Redirection vers la page d'accueil ou dashboard après la connexion
-            navigate('/dashboard'); // ou navigate('/') pour la page d'accueil
+            user.setUser(userConnect)
+            navigate('/dashboardUser')
+            console.log(response.data); // Réponse de l'API
+            // Gérer la réponse de succès ici, par exemple, rediriger l'utilisateur ou afficher un message de succès
         } catch (error) {
-            console.error('Erreur lors de la connexion:', error);
-            alert(error.message);
+            console.error('Erreur lors de la connection de l\'utilisateur:', error.message);
+            // Gérer l'erreur ici, par exemple, afficher un message d'erreur à l'utilisateur
+        }
+
+    }
+
+
+    const handleSubmit2 = async (e) => {
+        console.log(e)
+        e.preventDefault();
+
+        try {
+            const response = await axios.post('http://0.0.0.0:3000/api/signup', userData, {
+                headers: {
+                    "Access-Control-Allow-Origin": "http://0.0.0.0:3000",
+                    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+                    "Content-Type": "application/json"
+                }
+            });
+            console.log(response.data); // Réponse de l'API
+            // Gérer la réponse de succès ici, par exemple, rediriger l'utilisateur ou afficher un message de succès
+        } catch (error) {
+            console.error('Erreur lors de la création de l\'utilisateur:', error);
+            // Gérer l'erreur ici, par exemple, afficher un message d'erreur à l'utilisateur
         }
     };
 
-    const handleSubmitSignup = async (e) => {
-        e.preventDefault();
-      
-        // Préparez l'objet des données à envoyer pour l'inscription
-        const signupData = {
-          name: userData.name,
-          surname: userData.surname,
-          email: userData.email,
-          tel: userData.tel,
-          password: userData.password, // Assurez-vous d'ajouter un champ pour le mot de passe dans votre formulaire et dans votre état `userData`
-        };
-      
-        try {
-          const response = await fetch('http://localhost:3000/api/signup', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(signupData),
-          });
-      
-          if (!response.ok) {
-            const errorData = await response.json();
-            // Si la réponse contient un message d'erreur, utilisez-le
-            throw new Error(errorData.message || 'Une erreur s’est produite lors de l’inscription.');
-          }
-      
-          const result = await response.json(); // Récupère la réponse de l'API
-      
-          // Affichez un message de succès et connectez l'utilisateur automatiquement ou redirigez-le vers une autre page
-          alert('Inscription réussie ! Vous êtes maintenant inscrit et connecté.');
-          navigate('/dashboard'); // ou navigate('/') pour la page d'accueil
-        } catch (error) {
-          console.error('Erreur lors de l’inscription:', error);
-          // Ici, nous vérifions le message d'erreur pour personnaliser la réponse à l'utilisateur
-          let messageErreur;
-          switch (error.message) {
-            case 'Cette adresse email est déjà utilisée.':
-              messageErreur = 'Cette adresse email est déjà enregistrée. Veuillez en utiliser une autre.';
-              break;
-            case 'Le mot de passe doit contenir au moins 8 caractères.':
-              messageErreur = 'Votre mot de passe est trop court. Veuillez en choisir un plus long.';
-              break;
-            default:
-              messageErreur = 'Un problème est survenu lors de l’inscription. Veuillez réessayer plus tard.';
-          }
-          alert(messageErreur);
-        }
-      };
-      
+
+
+
+    const onCloseModal2 = (e) => {
+        setOpen2(false);
+        handleSubmit2(e);
+        setUserData({
+            name: '',
+            surname: '',
+            email: '',
+            tel: '',
+            is_admin: false
+        });
+        console.log(userData)
+    }
+
+
+    const onCloseModal = (e) => {
+        setOpen(false);
+        handleSubmit(e);
+        setUserConnect({ email: '', password: '' })
+
+
+    }
+    console.log(user.user)
+
     return (
         <>
             <header id='header'>
@@ -137,12 +139,12 @@ export const Header = () => {
                     <div id='title'><h1 id='textheader' onClick={navigateToHome}>Les Vacances Chez Gustave</h1></div>
                 </section>
                 <div id='headeruser'>
-                    {!user.user?.name ? (
-                        <div className='btns'>
-                            <button className='btnheader' onClick={onOpenModal}>Se connecter</button>
-                            <button className='btnheader' onClick={onOpenSignupModal}>S'inscrire</button>
-                        </div>
-                    ) : (
+
+                    {!user.user?.email &&
+                        <div className='btns'>  <button className='btnheader' onClick={onOpenModal}>Se connecter</button>
+                            <button className='btnheader' onClick={onOpenModal2}>S'inscrire</button> </div>
+                    }
+                    {user.user?.email &&
                         <div id='userconnected'>
                             <div className='idnt'><h2 className='user'>{user.user.name}</h2> <h2 className='user'>{user.user.surname}</h2></div>
                             <div className='btns'>
@@ -150,53 +152,34 @@ export const Header = () => {
                                 <button className='btnheader' onClick={logOut}>Déconnection</button>
                             </div>
                         </div>
-                    )}
+                    }
                 </div>
             </header>
 
-            <Modal open={openSignup} onClose={onCloseSignupModal} center>
-    <form id='inscription' onSubmit={handleSubmitSignup}>
-        <input
-            name='name'
-            className='login'
-            type='text'
-            placeholder='Nom'
-            value={userData.name}
-            onChange={handleChange}
-            required
-        />
-        <input
-            name='surname'
-            className='login'
-            type='text'
-            placeholder='Prénom'
-            value={userData.surname}
-            onChange={handleChange}
-            required
-        />
-        <input
-            name='email'
-            className='login'
-            type='email'
-            placeholder='Email'
-            value={userData.email}
-            onChange={handleChange}
-            required
-        />
-        <input
-            name='tel'
-            className='login'
-            type='tel'
-            placeholder='Téléphone'
-            value={userData.tel}
-            onChange={handleChange}
-            required
-        />
-        <button type='submit' className='btnheader'>S'inscrire</button>
-    </form>
-</Modal>
+            <Modal open={open} onClose={onCloseModal} center>
+                <form id='connection' method='POST' onSubmit={handleSubmit}>
+                    <input name='email' className='login' type="email" placeholder='Votre Email' value={userConnect.email} onChange={handleChange} />
+                    <input name='password' className='login' type="password" placeholder="Votre mot de passe" value={userConnect.password} onChange={handleChange} />
+                    <input type='submit' className='btnheader' onClick={onCloseModal} />
+                </form>
+            </Modal>
+
+
+
+            <Modal open={open2} onClose={onCloseModal2} center>
+                <form method='POST' id='inscription' onSubmit={handleSubmit2}>
+                    <input name='name' className='login' type="text" placeholder='Prénom' value={userData.name} onChange={handleChange2} />
+                    <input name='surname' className='login' type="text" placeholder='Nom' value={userData.surname} onChange={handleChange2} />
+                    <input name='email' className='login' type="email" placeholder='Votre Email' value={userData.email} onChange={handleChange2} />
+                    <input name='tel' className='login' type="tel" required minLength="10" maxLength="10" placeholder='Votre Téléphone' value={userData.tel} onChange={handleChange2} />
+
+                    <input type='submit' className='btnheader' onClick={onCloseModal2} />
+                </form>
+
+            </Modal>
 
 
         </>
-    );
+ 
+    )
 }

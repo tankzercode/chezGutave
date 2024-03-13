@@ -40,6 +40,11 @@ exports.uploadImages = (req, res, next) => {
 
 // Fonction pour créer un nouveau logement
 exports.createLogement = async (req, res) => {
+  console.log(req.body)
+  console.log(req.file)
+  console.log(req.files)
+
+  console.log(req)
   try {
     const {
       titre,
@@ -54,9 +59,32 @@ exports.createLogement = async (req, res) => {
       categorie,
       type,
     } = req.body;
+<<<<<<< HEAD
 
     // Les noms de fichiers des images téléchargées sont maintenant disponibles dans req.files
     const imageFilenames = req.files.map((file) => file.filename);
+=======
+    const imageBuffers = req.body.file; // 'req.files' doit être fourni par un middleware de gestion de fichiers, tel que multer.
+
+    // const imageFilenames = imageBuffers.map((buffer) =>
+    //   saveImageAndGetHash(buffer)
+    // );
+    // Utilisez Promise.all pour traiter toutes les images en parallèle
+    const promises = imageBuffers.map((buffer) =>
+      saveImageAndGetHash(buffer)
+    );
+>>>>>>> main
+
+    // Attendre la résolution de toutes les promesses
+    Promise.all(promises)
+      .then((imageHashes) => {
+        // Maintenant, imageHashes contient les hachages correspondant à chaque image
+        console.log("Hachages des images :", imageHashes);
+      })
+      .catch((error) => {
+        // Gérer les erreurs éventuelles
+        console.error("Une erreur s'est produite lors du traitement des images :", error);
+      });
 
     const newLogement = await db.Logement.create({
       images: imageFilenames, // Stockez les noms des fichiers au lieu des buffers d'image
@@ -75,8 +103,13 @@ exports.createLogement = async (req, res) => {
 
     res.status(201).json(newLogement);
   } catch (error) {
+<<<<<<< HEAD
     console.error("Erreur lors de la création du logement :", error);
     res.status(400).json(error);
+=======
+    console.log(error);
+    res.status(400).send(error);
+>>>>>>> main
   }
 };
 

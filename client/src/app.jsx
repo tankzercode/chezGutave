@@ -8,7 +8,10 @@ import AjoutMaison from "./pages/DashboardAdmin/AjoutMaison";
 import { Footer } from "./components/Footer";
 import { MentionLegales } from "./pages/MentionLegales";
 import { Quisommesnous } from "./pages/Quisommenous";
+import DashboardUserMain from "./pages/DashboardUSer/DashboardUserMain";
+import InfoUser from "./pages/DashboardUSer/InfoUser";
 import { PageProduit } from "./pages/PageProduit";
+
 
 
 const App = () => {
@@ -23,8 +26,9 @@ const App = () => {
 
                     <Routes>
                         <Route path='/' element={<Home />} />
-                        <Route path='/dashboard' element={<DashboardAdminMain />} >
+                        <Route path='/dashboardUser' element={<DashboardUserMain />} >
                             <Route path="AjoutMaison" element={<AjoutMaison />}></Route>
+                            <Route path="InfoUser" element={<InfoUser />}></Route>
                         </Route>
                         <Route path='/Mentions_Legales' element={<MentionLegales />} />
                         <Route path='/Qui_sommes_Nous' element={<Quisommesnous />} />
