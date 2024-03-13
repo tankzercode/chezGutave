@@ -10,6 +10,8 @@ import { MentionLegales } from "./pages/MentionLegales";
 import { Quisommesnous } from "./pages/Quisommenous";
 import DashboardUserMain from "./pages/DashboardUSer/DashboardUserMain";
 import InfoUser from "./pages/DashboardUSer/InfoUser";
+import { PageProduit } from "./pages/PageProduit";
+
 
 
 const App = () => {
@@ -30,6 +32,7 @@ const App = () => {
                         </Route>
                         <Route path='/Mentions_Legales' element={<MentionLegales />} />
                         <Route path='/Qui_sommes_Nous' element={<Quisommesnous />} />
+                        <Route path="villa" element={<PageProduit />}></Route>
                     </Routes>
                     <Footer/>
                 </BrowserRouter>

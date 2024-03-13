@@ -5,6 +5,7 @@ class Logement extends Model {}
 
 Logement.init(
   {
+    titre:DataTypes.STRING,
     images: DataTypes.ARRAY(DataTypes.TEXT),
     secteur: DataTypes.STRING,
     description: DataTypes.TEXT,
