@@ -1,29 +1,46 @@
 const db = require("../models/index");
-
+const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
-const uploadsDir = path.join(__dirname, "uploads");
 
-// Vérifie si le dossier 'uploads' existe, sinon le crée
-if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir, { recursive: true });
-}
-// Fonction pour sauvegarder l'image et obtenir le hash
-function saveImageAndGetHash(imageBuffer) {
-  const hash = crypto.createHash("sha256").update(imageBuffer).digest("hex");
-  const filename = `${hash}.png`;
-  const imagePath = path.join(__dirname, "..", "uploads", filename);
+// Configuration de Multer pour le stockage des images
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const uploadsDir = path.join(__dirname, "..", "uploads");
+    // Vérifie si le dossier 'uploads' existe, sinon le crée
+    if (!fs.existsSync(uploadsDir)) {
+      fs.mkdirSync(uploadsDir, { recursive: true });
+    }
+    cb(null, uploadsDir);
+  },
+  filename: (req, file, cb) => {
+    // Utilisez crypto pour générer un nom de fichier unique basé sur le contenu du fichier
+    const hash = crypto
+      .createHash("sha256")
+      .update(file.originalname + Date.now().toString())
+      .digest("hex");
+    cb(null, hash + path.extname(file.originalname)); // sauvegarde avec l'extension originale
+  },
+});
 
-  fs.writeFileSync(imagePath, imageBuffer);
+const upload = multer({ storage: storage }).array("images");
 
-  return filename;
-}
+// Middleware pour gérer le téléchargement d'images avec Multer
+exports.uploadImages = (req, res, next) => {
+  upload(req, res, function (err) {
+    if (err instanceof multer.MulterError) {
+      return res.status(500).json(err);
+    } else if (err) {
+      return res.status(500).json(err);
+    }
+    next(); // passe à la fonction suivante si tout va bien
+  });
+};
 
-// Modifier la fonction createLogement pour sauvegarder les images avec le hash
+// Fonction pour créer un nouveau logement
 exports.createLogement = async (req, res) => {
   try {
-    // Supposer que les images sont envoyées sous forme de buffer dans une requête multipart/form-data
     const {
       secteur,
       description,
@@ -36,14 +53,12 @@ exports.createLogement = async (req, res) => {
       categorie,
       type,
     } = req.body;
-    const imageBuffers = req.files; // 'req.files' doit être fourni par un middleware de gestion de fichiers, tel que multer.
 
-    const imageFilenames = imageBuffers.map((buffer) =>
-      saveImageAndGetHash(buffer)
-    );
+    // Les noms de fichiers des images téléchargées sont maintenant disponibles dans req.files
+    const imageFilenames = req.files.map((file) => file.filename);
 
     const newLogement = await db.Logement.create({
-      images: imageFilenames, // Stockez les noms des fichiers au lieu des buffers d'image
+      images: imageFilenames, // stockez les noms de fichier générés par Multer
       secteur,
       description,
       tarif_bas,
@@ -56,18 +71,20 @@ exports.createLogement = async (req, res) => {
       type,
     });
 
-    res.status(201).send(newLogement);
+    res.status(201).json(newLogement);
   } catch (error) {
-    res.status(400).send(error);
+    console.error("Erreur lors de la création du logement :", error);
+    res.status(400).json(error);
   }
 };
 
-// Récupérer tous les logements
+// Récupérer tous les logements (pas de changement nécessaire ici)
 exports.getAllLogements = async (req, res) => {
   try {
     const logements = await db.Logement.findAll();
-    res.status(200).send(logements);
+    res.status(200).json(logements);
   } catch (error) {
-    res.status(400).send(error);
+    console.error("Erreur lors de la récupération des logements :", error);
+    res.status(400).json(error);
   }
 };
