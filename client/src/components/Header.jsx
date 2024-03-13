@@ -11,11 +11,7 @@ export const Header = () => {
     console.log(user)
     const navigate = useNavigate()
 
-    const user = useContext(UserContext);
-    const navigate = useNavigate();
     const [open, setOpen] = useState(false);
-    const [openSignup, setOpenSignup] = useState(false);
-
     const onOpenModal = () => setOpen(true);
 
 
@@ -25,13 +21,12 @@ export const Header = () => {
 
 
     const logOut = () => {
-        user.setUser(null);
-        navigate('/');
-    };
-
-    const navigateToDashboard = () => {
-        navigate('/dashboardUSer');
-    };
+        user.setUser(null)
+        navigate('/')
+    }
+    const menu = () => {
+        navigate('/dashboardUSer')
+    }
 
     const home = () => {
         navigate('/')
@@ -45,11 +40,12 @@ export const Header = () => {
 
 
     const [userData, setUserData] = useState({
-        name: '',
+        name: '',// Les données utilisateur à envoyer
         surname: '',
         email: '',
         tel: '',
         is_admin: false
+
     });
 
     const handleChange = (e) => {
@@ -61,6 +57,8 @@ export const Header = () => {
         const { name, value } = e.target;
         setUserData({ ...userData, [name]: value });
     };
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -130,13 +128,13 @@ export const Header = () => {
 
     }
     console.log(user.user)
-
-    return (
+return (
         <>
+
             <header id='header'>
                 <section className='responsive'>
-                    <div id='centredlogo'><img id='logo' src={Logo} alt="Logo" onClick={navigateToHome}></img></div>
-                    <div id='title'><h1 id='textheader' onClick={navigateToHome}>Les Vacances Chez Gustave</h1></div>
+                    <div id='centredlogo' ><img id='logo' src={Logo} onClick={home}></img></div>
+                    <div id='title'><h1 id='textheader' onClick={home}>Les Vacances Chez Gustave</h1></div>
                 </section>
                 <div id='headeruser'>
 
@@ -148,11 +146,12 @@ export const Header = () => {
                         <div id='userconnected'>
                             <div className='idnt'><h2 className='user'>{user.user.name}</h2> <h2 className='user'>{user.user.surname}</h2></div>
                             <div className='btns'>
-                                <button className='btnheader' onClick={navigateToDashboard}>Menus</button>
-                                <button className='btnheader' onClick={logOut}>Déconnection</button>
+                                <button className='btnheader ' onClick={menu}>Menus</button>
+                                <button className='btnheader ' onClick={logOut}>Déconnection</button>
                             </div>
                         </div>
                     }
+
                 </div>
             </header>
 
@@ -180,6 +179,4 @@ export const Header = () => {
 
 
         </>
- 
-    )
-}
+)}
