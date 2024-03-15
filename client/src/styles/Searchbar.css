@@ -41,7 +41,7 @@
     #search{
         flex-direction: column;
         height: auto;
-        position: relative;
+        position: sticky;
         padding: 2% 0;
         
     }
