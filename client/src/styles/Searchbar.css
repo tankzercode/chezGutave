@@ -41,10 +41,14 @@
     #search{
         flex-direction: column;
         height: auto;
-        position: sticky;
+        position: relative;
         padding: 2% 0;
+        
     }
     #nombre{
         flex-direction: column;
+    }
+    #icon{
+        margin-top: 15px;
     }
     }

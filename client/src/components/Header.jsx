@@ -62,6 +62,10 @@ export const Header = () => {
         setUserData({ ...userData, [name]: value });
     };
 
+const connected = async()=>{
+    
+}
+
 
 
     const handleSubmit = async (e) => {
@@ -75,9 +79,12 @@ export const Header = () => {
                     "Content-Type": "application/json"
                 }
             });
-            user.setUser(userConnect)
-            navigate('/dashboardUser')
+            user.setUser({
+                
+                
+            })
             console.log(response.data); // Réponse de l'API
+            console.log(user)
             // Gérer la réponse de succès ici, par exemple, rediriger l'utilisateur ou afficher un message de succès
         } catch (error) {
             console.error('Erreur lors de la connection de l\'utilisateur:', error.message);
@@ -113,13 +120,13 @@ export const Header = () => {
     const onCloseModal2 = (e) => {
         setOpen2(false);
         handleSubmit2(e);
-        setUserData({
-            name: '',
-            surname: '',
-            email: '',
-            tel: '',
-            is_admin: false
-        });
+        // setUserData({
+        //     name: '',
+        //     surname: '',
+        //     email: '',
+        //     tel: '',
+        //     is_admin: false
+        // });
         console.log(userData)
     }
 
@@ -127,7 +134,7 @@ export const Header = () => {
     const onCloseModal = (e) => {
         setOpen(false);
         handleSubmit(e);
-        setUserConnect({ email: '', password: '' })
+        // setUserConnect({ email: '', password: '' })
 
 
     }
