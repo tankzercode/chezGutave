@@ -1,13 +1,9 @@
-import { useContext, useEffect, useState } from 'react'
-import Logo from '/crown.png'
-import UserContext from '../context/user_context'
+import { useContext, useState } from 'react';
+import Logo from '/crown.png';
+import UserContext from '../context/user_context';
 import '../styles/Header.css';
-import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
-import { Invalide } from './Invalide';
-import { Temps } from './Temps';
 import { useNavigate } from 'react-router';
-import { Home } from '../pages/Home';
 import axios from 'axios'
 export const Header = () => {
 
@@ -132,8 +128,7 @@ export const Header = () => {
 
     }
     console.log(user.user)
-
-    return (
+return (
         <>
 
             <header id='header'>
@@ -184,6 +179,4 @@ export const Header = () => {
 
 
         </>
-    )
-
-}
+)}
