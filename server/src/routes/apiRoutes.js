@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const cors = require('cors')
+const cors = require("cors");
 router.use(
   cors({
     origin: "http://localhost:5173",
@@ -20,6 +20,8 @@ const reservationController = require("../controllers/reservationController");
 router.get("/getAllUsers", userController.getAllUsers);
 router.post("/signup", userController.signup);
 router.post("/signin", userController.signin);
+router.put("/users/:userId", userController.updateUser);
+router.delete("/users/:userId", userController.deleteUser);
 // Routes pour les logements
 router.post("/createLogement", logementController.createLogement);
 router.get("/getAllLogements", logementController.getAllLogements);
