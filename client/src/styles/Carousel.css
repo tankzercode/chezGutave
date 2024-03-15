@@ -7,12 +7,17 @@
     height: fit-content;
 }
 .horizontalSlider___281Ls{
-    height: 90vh;
+    height: 80vh;
 }
 
 @media screen and (max-width: 799px) {
     .horizontalSlider___281Ls{
         height: 23vh;
+        
+    }
+    .carousel{
+        height: 23vh;
+        
     }
 
 }
