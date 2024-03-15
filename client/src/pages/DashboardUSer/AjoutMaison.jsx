@@ -7,6 +7,7 @@ const AjoutMaison = () => {
 
     const [maison, setMaison] = useState({
 
+        titre: '',
         secteur: '',
         description: '',
         tarif_bas: '',
@@ -56,7 +57,10 @@ const AjoutMaison = () => {
         <>
             <section>
                 <form id='AjoutMaison'  >
-                    {/* <input className='formMaison' type="text" placeholder='Titre' /> */}
+                    
+                <input name='titre' className='' type='text' placeholder='Titre' onChange={(e) => {
+                        handleChange("titre", e.target.value)
+                    }} />
                     <input name='type' className='formMaison' list="Type de Logment" placeholder='Type de Logment' value={maison.type} onChange={(e) => {
                         handleChange("type", e.target.value)
                     }} />
