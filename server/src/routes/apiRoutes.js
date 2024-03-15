@@ -23,7 +23,11 @@ router.post("/signin", userController.signin);
 router.put("/users/:userId", userController.updateUser);
 router.delete("/users/:userId", userController.deleteUser);
 // Routes pour les logements
-router.post("/createLogement", logementController.createLogement);
+router.post(
+  "/createLogement",
+  logementController.uploadImages,
+  logementController.createLogement
+);
 router.get("/getAllLogements", logementController.getAllLogements);
 
 // Routes pour les équipements
