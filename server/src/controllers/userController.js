@@ -69,13 +69,26 @@ exports.signin = async (req, res) => {
     const user = await db.User.findOne({ where: { email } });
 
     if (user && (await bcrypt.compare(password, user.password))) {
+      // Création du token JWT
       const token = jwt.sign(
         { id: user.id, email: user.email },
-        "votre_clé_secrète",
+        "votre_clé_secrète", // Assurez-vous d'utiliser une clé secrète sécurisée et de la stocker de manière sécurisée
         { expiresIn: "24h" }
-      ); // Utilisez une clé secrète plus sécurisée
+      );
 
-      res.status(200).send({ message: "Connexion réussie", token });
+      // Inclure les informations de l'utilisateur dans la réponse, à l'exception du mot de passe
+      res.status(200).send({
+        message: "Connexion réussie",
+        token,
+        user: {
+          id: user.id,
+          email: user.email,
+          name: user.name, // Assurez-vous que ces champs existent sur votre modèle utilisateur
+          surname: user.surname,
+          tel: user.tel,
+          is_admin: user.is_admin,
+        },
+      });
     } else {
       res.status(401).send({
         message: "Email ou mot de passe incorrect",
