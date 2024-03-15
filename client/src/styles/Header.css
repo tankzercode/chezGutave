@@ -90,6 +90,13 @@
     justify-content: center;
     align-items: center;
     gap: 15px;
+    h2{
+        background-color: transparent;
+        height: fit-content;
+
+        width: fit-content;
+        margin: 0;
+    }
 }
 
 #connection {
@@ -129,6 +136,7 @@
 .user {
     color: var(--Or);
     margin: 0;
+    
 }
 
 #userconnected {
@@ -145,6 +153,7 @@
     width: fit-content;
     margin: 0;
 }
+
 
 @media screen and (max-width: 799px) {
     #header {

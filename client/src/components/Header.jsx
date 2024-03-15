@@ -76,11 +76,9 @@ const connected = async()=>{
                 }
             });
             user.setUser({
-                
-                
+                 user:response.data.user.user.user
             })
             console.log(response.data); // Réponse de l'API
-            console.log(user)
             // Gérer la réponse de succès ici, par exemple, rediriger l'utilisateur ou afficher un message de succès
         } catch (error) {
             console.error('Erreur lors de la connection de l\'utilisateur:', error.message);
@@ -145,13 +143,13 @@ return (
                 </section>
                 <div id='headeruser'>
 
-                    {!user.user?.email &&
+                    {!user.user.user?.id &&
                         <div className='btns'>  <button className='btnheader' onClick={onOpenModal}>Se connecter</button>
                             <button className='btnheader' onClick={onOpenModal2}>S'inscrire</button> </div>
                     }
-                    {user.user?.email &&
+                    {user.user.user?.id &&
                         <div id='userconnected'>
-                            <div className='idnt'><h2 className='user'>{user.user.name}</h2> <h2 className='user'>{user.user.surname}</h2></div>
+                            <div className='idnt'><h2 className='user'>{user.user.user.name}</h2> <h2 className='user'>{user.user.user.surname}</h2></div>
                             <div className='btns'>
                                 <button className='btnheader ' onClick={menu}>Menus</button>
                                 <button className='btnheader ' onClick={logOut}>Déconnection</button>

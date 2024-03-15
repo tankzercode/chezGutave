@@ -5,8 +5,5 @@ require("dotenv").config({ path: "../.env" }); // Ajustez le chemin selon la str
 
 
 
-const database = new Sequelize(
-  "postgres://root:root@chezgutave-database-1:5432/postgres"
-)
-
+const database = new Sequelize(process.env.DATABASE_URL);
 module.exports = database;
