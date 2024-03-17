@@ -3,7 +3,7 @@ const LogementModel = require("./logementsModel.js");
 const EquipementModel = require("./equipementsModel.js");
 const ReservationModel = require("./reservationsModels.js");
 const RatingModel = require("./ratingModels.js");
-// Importez d'autres modèles ici
+const invitationModels = require("./invitationModels.js"); //
 
 // Exportez les modèles
 module.exports = {
@@ -12,5 +12,6 @@ module.exports = {
   Equipement: EquipementModel,
   Reservation: ReservationModel,
   Rating: RatingModel,
+  Invitation: invitationModels,
   // autres modèles
 };

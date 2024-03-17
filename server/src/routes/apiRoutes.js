@@ -14,6 +14,7 @@ const logementController = require("../controllers/logementController");
 const equipementController = require("../controllers/equipementController");
 const ratingController = require("../controllers/ratingController");
 const reservationController = require("../controllers/reservationController");
+const invitationController = require("../controllers/invitationController");
 
 // Routes pour les utilisateurs
 
@@ -45,5 +46,6 @@ router.delete(
   "/deleteReservation/:reservationId",
   reservationController.deleteReservation
 );
+router.post("/invitations", invitationController.createInvitation);
 
 module.exports = router;
