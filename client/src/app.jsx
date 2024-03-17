@@ -11,7 +11,7 @@ import { Quisommesnous } from "./pages/Quisommenous";
 import DashboardUserMain from "./pages/DashboardUSer/DashboardUserMain";
 import InfoUser from "./pages/DashboardUSer/InfoUser";
 import { PageProduit } from "./pages/PageProduit";
-
+import 'react-responsive-modal/styles.css';
 
 
 const App = () => {
