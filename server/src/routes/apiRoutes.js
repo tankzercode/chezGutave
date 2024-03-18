@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const cors = require("cors");
-const authenticateJWT = require("../middleware/authenticateJWT");
+const authenticateJWT = require("../middleware/authenfication");
 const { checkRole } = require("../middleware/checkRole");
 
 // Middleware CORS pour autoriser les requêtes de développement
@@ -12,7 +12,12 @@ router.use(
     credentials: true,
   })
 );
-
+// Importation des contrôleurs
+const userController = require("../controllers/userController");
+const logementController = require("../controllers/logementController");
+const equipementController = require("../controllers/equipementController");
+const ratingController = require("../controllers/ratingController");
+const reservationController = require("../controllers/reservationController");
 // Routes pour les utilisateurs
 router.get(
   "/getAllUsers",
