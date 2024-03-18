@@ -68,11 +68,10 @@ export const Header = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://0.0.0.0:3000/api/signin', userConnect, {
+            const response = await axios.post('http://localhost:3000/api/signin', userConnect, {
                 headers: {
-                    "Access-Control-Allow-Origin": "http://0.0.0.0:3000",
+                    "Access-Control-Allow-Origin": "http://localhost:3000",
                     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-                    "Content-Type": "application/json"
                 }
             });
             user.setUser(userConnect)
@@ -92,9 +91,9 @@ export const Header = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://0.0.0.0:3000/api/signup', userData, {
+            const response = await axios.post('http://localhost:3000/api/signup', userData, {
                 headers: {
-                    "Access-Control-Allow-Origin": "http://0.0.0.0:3000",
+                    "Access-Control-Allow-Origin": "http://localhost:3000",
                     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
                     "Content-Type": "application/json"
                 }
