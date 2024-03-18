@@ -47,6 +47,7 @@ router.post(
   "/createLogement",
   authenticateJWT,
   checkRole(["admin"]),
+  logementController.uploadImages,
   logementController.createLogement
 );
 router.get("/getAllLogements", logementController.getAllLogements);

@@ -58,6 +58,10 @@ export const Header = () => {
         setUserData({ ...userData, [name]: value });
     };
 
+const connected = async()=>{
+    
+}
+
 
 
     const handleSubmit = async (e) => {
@@ -71,8 +75,9 @@ export const Header = () => {
                     "Content-Type": "application/json"
                 }
             });
-            user.setUser(userConnect)
-            navigate('/dashboardUser')
+            user.setUser({
+                 user:response.data.user.user.user
+            })
             console.log(response.data); // Réponse de l'API
             // Gérer la réponse de succès ici, par exemple, rediriger l'utilisateur ou afficher un message de succès
         } catch (error) {
@@ -109,13 +114,13 @@ export const Header = () => {
     const onCloseModal2 = (e) => {
         setOpen2(false);
         handleSubmit2(e);
-        setUserData({
-            name: '',
-            surname: '',
-            email: '',
-            tel: '',
-            is_admin: false
-        });
+        // setUserData({
+        //     name: '',
+        //     surname: '',
+        //     email: '',
+        //     tel: '',
+        //     is_admin: false
+        // });
         console.log(userData)
     }
 
@@ -123,7 +128,7 @@ export const Header = () => {
     const onCloseModal = (e) => {
         setOpen(false);
         handleSubmit(e);
-        setUserConnect({ email: '', password: '' })
+        // setUserConnect({ email: '', password: '' })
 
 
     }
@@ -138,13 +143,13 @@ return (
                 </section>
                 <div id='headeruser'>
 
-                    {!user.user?.email &&
+                    {!user.user.user?.id &&
                         <div className='btns'>  <button className='btnheader' onClick={onOpenModal}>Se connecter</button>
                             <button className='btnheader' onClick={onOpenModal2}>S'inscrire</button> </div>
                     }
-                    {user.user?.email &&
+                    {user.user.user?.id &&
                         <div id='userconnected'>
-                            <div className='idnt'><h2 className='user'>{user.user.name}</h2> <h2 className='user'>{user.user.surname}</h2></div>
+                            <div className='idnt'><h2 className='user'>{user.user.user.name}</h2> <h2 className='user'>{user.user.user.surname}</h2></div>
                             <div className='btns'>
                                 <button className='btnheader ' onClick={menu}>Menus</button>
                                 <button className='btnheader ' onClick={logOut}>Déconnection</button>

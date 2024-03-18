@@ -43,8 +43,12 @@
         height: auto;
         position: sticky;
         padding: 2% 0;
+        
     }
     #nombre{
         flex-direction: column;
+    }
+    #icon{
+        margin-top: 15px;
     }
     }
