@@ -1,16 +1,16 @@
 require("dotenv").config();
-const checkRole = (roles) => (req, res, next) => {
+const checkRole = (role) => (req, res, next) => {
   if (!req.user) {
     // Si l'utilisateur n'est pas authentifié
-    return res.sendStatus(401);
+    res.status(401).send("error role");
   }
 
-  const { role } = req.user;
-  if (roles.includes(role)) {
+  const { roleUser } = req.user;
+  if (roleUser.includes(role)) {
     next();
   } else {
     res.status(403).json({ message: "Accès refusé. Rôle insuffisant." });
   }
 };
 
-module.exports = { checkRole };
+module.exports = checkRole;
