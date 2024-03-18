@@ -1,29 +1,39 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
 export const DescriptionVilla = () => {
+    const [villaData, setVillaData] = useState({
+        description: '' // Assurez-vous de spécifier une valeur par défaut pour la description
+    });
 
-    return(
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://0.0.0.0:3000/api/createLogement', villaData, {
+                    headers: {
+                        "Access-Control-Allow-Origin": "http://0.0.0.0:3000",
+                        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+                        "Content-Type": "application/json"
+                    }
+                });
+                console.log(response.data); // Réponse de l'API
+                // Gérer la réponse de succès ici, par exemple, rediriger l'utilisateur ou afficher un message de succès
+            } catch (error) {
+                console.error('Erreur lors de la création de l\'utilisateur:', error);
+                // Gérer l'erreur ici, par exemple, afficher un message d'erreur à l'utilisateur
+            }
+        };
+
+        fetchData(); // Appeler la fonction fetchData à l'intérieur de useEffect
+    }, [villaData]); // Ajouter villaData comme dépendance
+
+    return (
         <>
-        <div id='descriptionDiv'>
-<p id='descriptionVilla'>The Amazing Digital Circus est une comédie psychologique sombre dans laquelle d’adorables personnages animés détestent leur vie et cherchent à s’échapper. 🎪😀
-Une série créée par Gooseworx et GLITCH Productions.
-
-DIRECTION DOUBLAGE : William Sidoun-Hivonnet, Anna Lauzeray Gishi
-INGÉNIEUR RECORD : William Sidoun-Hivonnet
-MIXEUR : Quentin Gomez
-TRADUCTION, SOUS-TITRAGE ET ADAPTATION : Mona Michelot, Sarah Laurent
-
-CASTING FRANÇAIS :
-Pomni - Salomé Mallié
-Caine - Yann Abiven
-Jax - Benoît Fort-Junca
-Ragatha - Mayrig Truchot
-Zooble - Morgane Brehamel
-Gangle - Mathilde Carmes
-Kinger - Arno Capostagno
-Bubble - Anna Lauzeray Gishi
-Lune - Mayrig Truchot
-Reine Gloink - Morgane Brehamel</p>
-</div>
-</>
-    )
-}
+            <div id='descriptionDiv'>
+                <p id='descriptionVilla'>
+                    {villaData.description}
+                </p>
+            </div>
+        </>
+    );
+};
