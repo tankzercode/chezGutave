@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const cors = require("cors");
-const authenticateJWT = require("./middleware/authenticateJWT");
+const authenticateJWT = require("./middleware/authenficationJWT");
 const { checkRole } = require("./middleware/checkRole");
 
 // Middleware CORS pour autoriser les requêtes de développement
