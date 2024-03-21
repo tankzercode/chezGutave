@@ -1,9 +1,9 @@
-const cors = require('cors')
+const cors = require("cors");
 const app = require("./app");
 const database = require("./database");
 const express = require("express");
 const apiRoutes = require("./routes/apiRoutes");
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 const port = 3000;
 app.use(
   cors({
@@ -11,9 +11,9 @@ app.use(
     methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
   })
 );
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }));
 // Utilisation des routes API
 app.use("/api", apiRoutes);
 
