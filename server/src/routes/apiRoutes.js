@@ -4,6 +4,12 @@ const cors = require("cors");
 const authenticateJWT = require("./middleware/authenficationJWT");
 const { checkRole } = require("./middleware/checkRole");
 
+const userController = require("../controllers/userController");
+const logementController = require("../controllers/logementController");
+const equipementController = require("../controllers/equipementController");
+const ratingController = require("../controllers/ratingController");
+const reservationController = require("../controllers/reservationController");
+const invitationController = require("../controllers/invitationController");
 // Middleware CORS pour autoriser les requêtes de développement
 router.use(
   cors({
@@ -12,6 +18,7 @@ router.use(
     credentials: true,
   })
 );
+// Importation des contrôleurs
 
 // Routes pour les utilisateurs
 router.get(
@@ -79,10 +86,10 @@ router.delete(
   authenticateJWT,
   reservationController.deleteReservation
 );
-
 router.post(
   "/invitations",
   authenticateJWT,
   checkRole(["admin"]),
   invitationController.createInvitation
 );
+module.exports = router;

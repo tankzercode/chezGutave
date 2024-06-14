@@ -24,7 +24,7 @@ database.authenticate().then(() => {
   });
 });
 
-app.listen(port),
+app.listen(3000),
   () => {
     console.log("Server listening on 3000");
   };
